@@ -1,0 +1,17 @@
+\begin{figure*}[t]
+\centering
+% problem_id: 4010aaeb-28f7-5704-bc35-a5286b7efa1f (Task_3_18, ground truth ['ts'])
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize, frame=single, breaklines=true, upquote=true]
+(a) JSON -- database span:
+{'traceId': 'bBniqPX+0EjLeW1N4kZczA==', 'spanId': '2', 'parentSpanId': '1', 'name': 'SELECT ts.orders', ..., 'db.operation': 'SELECT', 'db.sql.table': 'orders', 'db.name': 'ts', 'db.system': 'mysql'}
+Llama-3.1 answer: ['ts']   (correct)
+
+(b) CSV -- complete trace (header and both spans):
+traceId,spanId,parentSpanId,name,...,db.operation,db.sql.table,db.name,db.system
+bBniqPX+0EjLeW1N4kZczA==,1,-1,/api/v1/orderservice/order/refresh,...,,,,
+bBniqPX+0EjLeW1N4kZczA==,2,1,SELECT ts.orders,...,SELECT,orders,ts,mysql
+Llama-3.1 answer: ['mysql']   (incorrect)
+\end{lstlisting}
+\caption{RQ1: The same trace in JSON and CSV for Task 3.18, ``Which database is accessed most frequently in the Input Trace?'' (correct answer \texttt{ts}), with the answers of Llama-3.1. Part (a) shows the span that accesses the database, part (b) the complete trace. Middle attributes are elided (\texttt{...}).}
+\label{fig:rq1_example}
+\end{figure*}

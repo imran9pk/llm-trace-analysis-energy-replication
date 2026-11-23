@@ -1,0 +1,54 @@
+# config.yaml
+# Update paths and settings before running.
+
+
+# Data
+# Path to the test instances JSON file.
+# Format: {problem_id: {task_id, type_id, instruction, input, output, answer}}
+# This is the preprocessed test set from TraceBench (the 30% split).
+# Shared with TraceLLM/dataset/TraceBench/ rather than a local PoT copy.
+test_instances_path: "../../dataset/TraceBench/test/preprocessed/0.pt"
+
+# Output
+# Generated scripts + generation logs go to TraceLLM/output/generated_scripts/;
+# execution results go to TraceLLM/output/executed_scripts_results/ (handled in scripts).
+
+device: "cuda"
+max_new_tokens: 2048
+do_sample: False
+measure_energy: True
+cooldown_between_tasks_s: 2.0
+
+# Data
+task_info_path: "../../dataset/TraceBench/test/preprocessed/TaskInfo.json"
+trace_format_desc_path: "../../dataset/TraceBench/test/preprocessed/TraceFormatDesc.json"
+examples: zero
+
+## TraceBench path
+trace_bench_dataset: "../../dataset/TraceBench"
+
+desc_method: raw_spans_desc
+
+# Trace format key inside TraceFormatDesc.json
+trace_format_key: "raw_spans_desc"
+
+# Model
+# llm_name: Llama-3.1-8B-Instruct
+# llm_path: /path/to/models/Llama-3.1-8B-Instruct
+# job_model_name: lama
+
+# llm_name: Qwen3-8B
+# llm_path: /path/to/models/Qwen3-8B
+# job_model_name: qwn
+
+# llm_name: DeepSeek-R1-Distill-Llama-8B
+# llm_path: /path/to/models/DeepSeek-R1-Distill-Llama-8B
+# job_model_name: dsk
+
+llm_name: Ministral-8B-Instruct-2410
+llm_path: /path/to/models/Ministral-8B-Instruct-2410
+job_model_name: mst
+
+# Execution energy of the generated programs (src/PoT/03_measure_execution_energy.py, run on a dedicated measurement machine)
+exec_energy_repetitions: 5     # independent measurements per model and shot level; the paper reports their mean
+exec_energy_iterations: 150    # runs of the test set (9,120 calls) in a loop inside one measurement window

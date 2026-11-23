@@ -1,0 +1,16 @@
+\begin{table}[t]
+\centering
+\caption{Mean GPU energy consumption per instance (J) and percentage changes relative to JSON.}
+\label{tab:rq2_energy}
+\begin{tabularx}{\columnwidth}{lXXX}
+\toprule
+Format & Qwen & Llama & Ministral \\
+\midrule
+JSON & 1,420 & 1,471 & 1,498 \\
+Markdown & \textbf{1,302} ($-8.3$\%) & 1,233 ($-16.2$\%) & \textbf{1,268} ($-15.3$\%) \\
+TRON & 1,409 ($-0.8$\%) & 1,348 ($-8.3$\%) & 1,383 ($-7.6$\%) \\
+TOON & 1,389 ($-2.2$\%) & \textbf{1,229} ($-16.4$\%) & 1,418 ($-5.3$\%) \\
+CSV & 1,347 ($-5.2$\%) & 1,329 ($-9.7$\%) & 1,440 ($-3.8$\%) \\
+\bottomrule
+\end{tabularx}
+\end{table}

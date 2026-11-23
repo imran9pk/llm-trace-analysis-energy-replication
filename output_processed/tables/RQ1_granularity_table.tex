@@ -1,0 +1,38 @@
+\begin{table}[t]
+\centering
+\caption{Accuracy of trace data formats by task granularity, with changes relative to JSON in percentage points.}
+\label{tab:rq1_granularity}
+\begin{tabularx}{\columnwidth}{lXXX}
+\toprule
+Format & Qwen & Llama & Ministral \\
+\midrule
+\multicolumn{4}{l}{\textit{Single-node (9 tasks, 2,160 instances)}} \\
+JSON & \textbf{0.626} & 0.340 & \textbf{0.443} \\
+Markdown & 0.618 ($-0.8$) & \textbf{0.362} ($+2.3$) & 0.440 ($-0.3$) \\
+TRON & 0.605 ($-2.1$) & 0.334 ($-0.6$) & 0.414 ($-2.9$) \\
+TOON & 0.604 ($-2.2$) & 0.343 ($+0.3$) & 0.407 ($-3.6$) \\
+CSV & 0.600 ($-2.5$) & 0.361 ($+2.1$) & 0.406 ($-3.7$) \\
+\midrule
+\multicolumn{4}{l}{\textit{Node-pair (7 tasks, 1,680 instances)}} \\
+JSON & 0.760 & 0.497 & 0.440 \\
+Markdown & \textbf{0.771} ($+1.1$) & 0.503 ($+0.6$) & \textbf{0.465} ($+2.6$) \\
+TRON & 0.742 ($-1.8$) & 0.477 ($-2.0$) & 0.429 ($-1.1$) \\
+TOON & 0.768 ($+0.8$) & \textbf{0.506} ($+0.9$) & 0.430 ($-1.0$) \\
+CSV & 0.770 ($+1.0$) & 0.487 ($-1.0$) & 0.435 ($-0.5$) \\
+\midrule
+\multicolumn{4}{l}{\textit{Single-trace (12 tasks, 2,880 instances)}} \\
+JSON & \textbf{0.616} & \textbf{0.558} & \textbf{0.484} \\
+Markdown & 0.593 ($-2.3$) & 0.459 ($-9.9$) & 0.441 ($-4.3$) \\
+TRON & 0.578 ($-3.8$) & 0.428 ($-13.0$) & 0.436 ($-4.8$) \\
+TOON & 0.560 ($-5.7$) & 0.411 ($-14.7$) & 0.388 ($-9.6$) \\
+CSV & 0.526 ($-9.0$) & 0.423 ($-13.5$) & 0.415 ($-6.9$) \\
+\midrule
+\multicolumn{4}{l}{\textit{Trace-pair (10 tasks, 2,400 instances)}} \\
+JSON & 0.668 & 0.617 & 0.653 \\
+Markdown & 0.710 ($+4.2$) & 0.651 ($+3.4$) & \textbf{0.714} ($+6.1$) \\
+TRON & 0.668 ($+0.0$) & 0.610 ($-0.7$) & 0.627 ($-2.6$) \\
+TOON & \textbf{0.717} ($+4.9$) & 0.647 ($+3.0$) & 0.643 ($-1.0$) \\
+CSV & 0.697 ($+2.9$) & \textbf{0.653} ($+3.7$) & 0.652 ($-0.1$) \\
+\bottomrule
+\end{tabularx}
+\end{table}

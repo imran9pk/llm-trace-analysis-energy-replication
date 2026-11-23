@@ -1,0 +1,5834 @@
+================ JOB INFO ================
+Job ID              : 677244
+Job name            : lamaMARKDOWN7
+Start time          : Wed Aug  5 03:12:22 PM CEST 2026
+Node                : <node>
+CUDA_VISIBLE_DEVICES: 0
+SLURM_CPUS_PER_TASK : 6
+
+================ CODE VERSION ================
+Commit : not a git repo / git unavailable
+Dirty files:
+
+================ ACTIVE CONFIG (config.yaml, comments/blank/secret-looking lines stripped) ================
+output_path: ./output
+normal_dataset: ./dataset/raw_dataset/sampled_traces/normal_traces.json
+abnormal_dataset: ./dataset/raw_dataset/sampled_traces/abnormal_traces.json
+trace_bench_dataset: ./dataset/TraceBench
+aug_ratio: 0.3
+split_ratio: 0.7
+processes_num: 8
+specification: OpenTelemetry
+desc_method: raw_spans_desc
+instruction_template_name: instruction_template_without_input_traces    # instruction_template, instruction_template_with_input_traces, instruction_template_without_input_traces
+response_template_name: response_with_step_template #response_without_step_template #response_with_step_template #response_without_step_template # response_with_step_template, response_without_step_template
+codeprompt_template_name: codeprompt_template
+do_sample: False
+device: cuda:0
+cooldown_between_tasks_s: 2.0 
+measure_energy: True
+batching_enabled: False
+batch_size: 1000
+input_data_format: MARKDOWN # JSON, TOON , CSV, MARKDOWN , TRON
+job_parts: 8 # number of parts for input dataset read by sh scripts
+llm_name: Qwen3-8B
+llm_path: <cluster-data>/models/Qwen3-8B
+job_model_name: qwn
+
+================ NODE SHARING CHECK ================
+NodeName=ra08u18 Arch=x86_64 CoresPerSocket=96 
+   CPUAlloc=24 CPUEfctv=384 CPUTot=384 CPULoad=3.78
+   Gres=gpu:h100:4
+   State=MIXED ThreadsPerCore=2 TmpDisk=0 Weight=1 Owner=N/A MCS_label=N/A
+   CfgTRES=cpu=384,mem=1547182M,billing=384,gres/gpu:h100=4
+   AllocTRES=cpu=24,mem=187200M,gres/gpu:h100=4
+
+================ JOBS ON THIS NODE ================
+             JOBID       USER                 NAME    STATE       TIME CPUS NODELIST(REASON)
+            677244      <user>        lamaMARKDOWN7  RUNNING       0:04    6 ra08u18
+            677240      <user>        lamaMARKDOWN3  RUNNING      25:50    6 ra08u18
+            677221      <user>         qwnMARKDOWN1  RUNNING    7:46:12    6 ra08u18
+            677222      <user>         qwnMARKDOWN2  RUNNING    7:46:12    6 ra08u18
+
+================ GPU CHECK ================
+GPU 0: NVIDIA H100 80GB HBM3 (UUID: GPU-687267b9-e7b0-8ea2-9231-fb964143fd6f)
+Wed Aug  5 15:12:22 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 590.48.01              Driver Version: 590.48.01      CUDA Version: 13.1     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA H100 80GB HBM3          On  |   00000000:E3:00.0 Off |                    0 |
+| N/A   34C    P0             67W /  700W |       0MiB /  81559MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+
+================ GPU CLOCKS ================
+==============NVSMI LOG==============
+    Clocks
+        Graphics                                       : 345 MHz
+        SM                                             : 345 MHz
+        Memory                                         : 2619 MHz
+    Applications Clocks
+        Graphics                                       : Requested functionality has been deprecated
+        Memory                                         : Requested functionality has been deprecated
+    Default Applications Clocks
+        Graphics                                       : Requested functionality has been deprecated
+        Memory                                         : Requested functionality has been deprecated
+    Deferred Clocks
+        Memory                                         : N/A
+    Max Clocks
+        Graphics                                       : 1980 MHz
+        SM                                             : 1980 MHz
+        Memory                                         : 2619 MHz
+    Max Customer Boost Clocks
+        Graphics                                       : 1980 MHz
+    SM Clock Samples
+    Memory Clock Samples
+
+================ HOST / SOFTWARE ================
+PRETTY_NAME="AlmaLinux 9.7 (Moss Jungle Cat)"
+5.14.0-611.38.1.el9_7.x86_64
+CPU(s):                                  384
+Model name:                              AMD EPYC 9654 96-Core Processor
+Mem:           1.5Ti        74Gi       1.4Ti       272Mi       5.4Gi       1.4Ti
+Python 3.10.20
+torch 2.12.1+cu130 | cuda 13.0 | transformers 5.12.1
+
+================ GPU POWER SETTINGS ================
+        Current Power Limit                            : 700.00 W
+        Requested Power Limit                          : 700.00 W
+        Default Power Limit                            : 700.00 W
+        Min Power Limit                                : 200.00 W
+        Max Power Limit                                : 700.00 W
+        Current Power Limit                            : N/A
+        Requested Power Limit                          : N/A
+        Default Power Limit                            : N/A
+        Min Power Limit                                : N/A
+        Max Power Limit                                : N/A
+
+================ START WORKLOAD ================
+Energy measurement enabled: True
+Starting for Llama-3.1-8B-Instruct, input format MARKDOWN, response type with_step
+Loading trace inputs for MARKDOWN from ./dataset/TraceBench/test/preprocessed/test_tasks_preprocessed_MARKDOWN_with_step.json
+Running part part_7_ids: 1140 tasks
+Total test tasks: 1140
+Loading Llama-3.1-8B-Instruct
+Finish loading Llama-3.1-8B-Instruct!
+Model device: cuda:0
+[energy] idle baseline = 112.07 W  (100 samples)
+Task 05e2394e-cdcf-52df-b246-6e2ec6ebb040
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task d3d34a3c-affb-595d-9a20-84779ea516a6
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 867cec14-55e9-5aca-b97d-79df868d0de5
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 23c9ac76-a110-5044-8abe-92fe82a2dfb4
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 16602d61-21ab-584a-a792-8133b600037a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 9c20ebb8-1ef0-5a4f-a06c-681df28ab676
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 90b3cd35-1d68-55fc-831c-5ab43c9a30a5
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ae66d68f-2b1e-54a9-a3b8-8d177d5fe386
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ae775fcf-9514-5802-a756-74ccb7084461
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f5c2f612-d3c9-56a2-8dac-616aa3a57f45
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 9d3f845a-7301-58aa-9375-3e37bbedc701
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 353facb2-9d48-59fb-99ec-9426c1945351
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 57ee80bc-9892-51c7-8f9e-164317b7d81a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 72aa573f-209a-59ca-8f2f-33ae86fcf439
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 84e14976-d4f8-5a37-aa3d-109bd74a9f65
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task a61308b7-0b4c-5302-9241-362ab4aa0145
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 1a880957-32a7-5944-bc4d-ea8d70794036
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 6ca7684d-c076-5c04-8e90-b2ab4768c21d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task adcf8da6-27fb-59e0-b3f9-b763f4205ac0
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 23507689-9fcf-5be3-ab5e-b5ed678bd21a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task a474d0c0-a34d-5a5b-86f9-105b24a8ad43
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 54e9a55a-6f40-5adb-b85d-b48e985a07b0
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 2ab5b02c-b7fe-5a2d-8cf7-6b43c3f02ed0
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 855e34b2-4fbf-52c1-b016-76c20d5ae701
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 1ed0db42-9f32-5cda-8574-548a7a8f3801
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f7822ab6-0f49-5acb-aada-28d0961d3679
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 0da35a73-1153-58cf-87ad-b6ed4cbf656d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3f157b92-c50f-5170-89db-a9619aa64d86
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task cce2ec12-68b7-5bce-9b6e-ab72dc21e579
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3d62041c-a59a-57d6-a041-45ceadbc66e5
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ec00d93e-3ff5-5cbe-bd31-46d30a702e66
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 11611d80-47c9-5cbc-a241-5efa9dff4099
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 9dead48f-e814-55fb-88d9-911f8532f737
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task e04d4dab-7f37-5d69-9d50-e306d708f463
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 14a37972-1f88-5075-b413-410b489f9b53
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 0fb1095a-d715-5236-8817-b609a6f66479
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 19dd78ae-d76f-52d5-b5c3-b1585d267e58
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 67ccb565-6b20-5794-8919-b5f5927d5390
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 78ccec5a-d02c-5137-a6a4-eed261620741
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 99a3e403-e0c8-5af6-a79d-2ae844d038be
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 9e7452a2-27cd-58a9-89ad-483010b721b7
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task da70c23e-6206-5ef7-ac85-f2065522a2b3
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task fa98b83f-904e-5213-95d2-27edd6c14aa3
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 570c212d-04e3-58a8-8d13-b96e9db96fca
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 800a17b0-d09b-5ae3-a8fa-287ac12e8422
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 831b9a97-9cf0-56c4-ae33-cf84a9fdf0cd
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 0b63fad9-4393-5449-9a85-7d070f687d0b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 95807bb0-6406-5b84-956a-885d68593170
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 275868ad-c80a-5007-a815-73511359358f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 6ddc58d5-8fbf-5a36-98fc-c812961b1fe8
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task d8b41d1b-230a-5c82-bba2-bcf5b0bdc95a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 8398abcc-100c-5544-ae7b-8e53bd6651ad
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7ef6499b-9d9c-5484-9a43-37acad8176ae
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task da0dbf97-8212-50d3-a7cd-12175b073bae
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task b18b4704-6569-5bfd-b712-1035d5eaf8fd
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task fd541b3c-5e24-51f2-a0cb-a55d5e683a41
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 73e0231f-ce2d-5b72-a128-cfbfac5b3636
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 1dce8813-8442-5c86-b2ea-b27b97415b1d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3e87add0-3c3d-5ec1-bdfe-6218e115fd3d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ec79e0b2-270a-57f3-bf84-705535124745
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 8a5fbb47-8d93-5dbf-9cc9-496504c66b40
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task cba61061-684d-5221-878e-ba4a8d0eb8b8
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 1128c39e-28d0-5449-9a0c-3bbc5537747d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 6c93bb16-2928-552d-aee0-28fb1a731c61
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 2894c607-8b3f-570d-8c44-577e61195820
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 1cfbdc7c-0b20-5212-ba82-39788da9af38
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 435d13f7-20ad-5fb0-b9d0-c557b1f361cd
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ce758484-baf4-584e-9cb0-8122e2cbc7ed
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4f082091-8882-5c16-8166-3eb3ed05ec49
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4f10bb92-d8d7-5d4f-8553-980a08f6ea6d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f82e135c-9cc1-556f-af21-6488ce291171
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 5e6ba2e9-98e5-5c65-959d-7116a2617240
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 522d42ab-1bf4-5f49-8c04-39b722ed9e94
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 547a221d-5bfe-59e4-ba8f-360fb2e8d39d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 1b105251-8134-5572-ac62-3c924c14b3dd
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task da37822a-1818-5339-badb-b05a9f0afaef
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c9dfde6d-c635-5a09-91cf-f75bda8d7efd
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 37a92a15-f9af-5e70-9c9a-2d87119784cb
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 82cade5f-3f08-565d-99dc-1ec586714d42
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c8e33e8e-287b-525a-a9bd-04e847f05a14
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task e7684ff0-112e-5f91-80df-024c73089927
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task e7a4babd-c759-57d3-a84e-a7ffe1289a14
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task cc257dc9-daae-5c68-a50d-d6ba257bc507
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task e353b4b4-fb7c-50c8-a4c7-ddfbe39a8a31
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task a5f5cb36-eb22-53b3-b594-f95286298c7c
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 05ed9558-c7d0-581f-9610-156895272f7d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 79b84bf2-06d7-5f23-b4b5-cbea64aa7c6e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 14035193-3279-5d71-a8cc-b85a9c92272e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 17b64c0e-5e17-5d25-8f5c-c14a18f4e765
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 40a27edb-82d1-5c66-ad57-ae4f5c92aa43
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task df150328-919c-5f9b-b4f3-1d73a02c8cac
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 107b87cf-2355-5c5b-adbd-33fba001d816
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 8eac40e3-fa3c-5427-832b-9ec4495e4291
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task cd63c615-5ad5-58ba-8007-ab39b1e51af6
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 52e68930-2461-5086-a470-b1f20e44d520
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ce808287-6eec-5d8b-a945-c344eb843868
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ac29a823-f218-5aba-ae1b-e452cbb81774
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task cabe8126-d4c7-5ded-8a90-c66ea15417c2
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c31d1fbc-1243-5b7e-8fcf-e134d1359cf0
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3a895bd3-d404-50ae-9d52-38899090e10f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task fa526631-6441-5f35-a6f1-48a3b07e2b88
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task be848d68-0a34-548c-a578-1bc1e811daa1
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 822fd9cd-104b-56c7-b634-d2e62e02d400
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3a4eabb0-72e5-5e87-b612-4e577409a2e4
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 91c16b9f-e55c-5e2c-bb7a-d2928a8b54a5
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 903e83d3-cdc4-5cce-ad3f-529ccc0130b4
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task df976b7e-3ef8-5c9b-8c9d-ca8e37747761
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task d47b7777-1964-5616-9533-803acb5431de
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 9b63fcde-9ef0-5381-a288-76a5ad834493
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 12a62c05-fd5d-5e5a-9552-90a9e32775b6
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 8cf56ba8-d3c8-5393-93f8-231127323dad
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c6ccdce4-a56e-5663-99bd-1ad9a074b538
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task b6a79d2d-9dc8-5012-8c39-0c4538636e15
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task b2e5a97c-99b4-5d44-8a17-e57b89b6fb84
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 604e1a5f-2444-5d38-8bec-998c3a623044
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 88c32e6e-f004-5d43-8c97-da507ba83858
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ee7935a2-ee22-5a6e-b21e-5cdabf229392
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 26e61050-78a0-5469-8349-d70cb77ebccd
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 269b0e0c-3271-530d-9034-a8555d186047
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task b47d9ed5-220d-56ea-b27d-1df85857bec9
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task aa79fc7d-f392-501a-a328-0f743a9789c8
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3535d390-842d-5c11-b74f-825a0155626c
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 82a9d840-0723-5c1d-8e25-894f31804c8f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ff9f53a3-09e3-58a5-a720-82341630a801
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 257e15b3-1cbe-5251-ae66-4e2ac06db5d7
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c1dbc6ee-6e22-507d-b030-c30359307113
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 2c283a58-99af-57b2-a824-23546595f8a2
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c1a66089-62eb-5866-9db3-161d5b14572c
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4422a31e-2740-5906-b4fb-559c36d81dd4
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 95dfb8c8-dc74-5b9f-9337-0c24376227ae
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task cfae26db-a81a-5924-a577-19647599268f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 69f205b9-4528-5372-aa4b-c7a6cb231c39
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7756fff7-e832-5ee8-9f8c-93997a182dac
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3fbf64f1-f30f-5d0f-a114-bbceba218fcc
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ba9b9e36-b989-5fc4-8ca2-3f32fb9f2ac3
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c8a2eb3b-2001-5a4f-891f-b3124929027f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 1c583656-1890-5bce-8b39-73d2d3291661
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 077a6e45-25c9-5fe3-a9fe-5441b0d20219
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 467a758a-da54-55d0-99bb-8b46a2586d4c
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 8e9978b7-0ef1-5a2b-a821-4e8c54cbddbf
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ed2dc90a-9a8e-5b34-b50b-5c31cc096b71
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task df547c0c-ca92-5ad9-be18-5851745a0b83
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 27a950b5-ac62-5407-aea9-fb2bc3c5b52c
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 79e508bc-4ebc-594f-a36c-d0d5b0bbc790
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task d32cd5f5-c56c-5476-98c7-ff251bc64714
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 0ce76bd7-2df0-554d-a4cb-0379d64295e6
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 150f2d15-7e52-543d-98ca-221b6461383f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 32a6bbf3-74a8-5399-9b72-67e02d628026
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f011024d-88fd-5aa6-95a5-0c64bc05ed6d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task d2abeb4b-a9ed-5565-b113-0beb4a58787f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ee8f17bf-30c2-5f0b-b25d-a7328caff034
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 441ec89b-1000-5816-8c72-83e1519d6d75
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 664cb62f-84c3-5402-b78b-9c7c74f83a99
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 8f0af9a6-26bc-55be-995f-7f4c82bb157a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 385de04f-03b4-5887-9e50-0fbffa0f8aa1
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task dd2524df-4ad8-5846-910d-99b585b68573
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c2f5316f-9804-5db5-84c6-b0695f0d6ba0
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 170dcffb-d2e8-571c-8ff3-0178e1481b44
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 0485b64f-45ad-5977-a853-7de169042261
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task bce87792-60ca-5f59-8cef-c460464d979d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f1f5fe7c-afd5-561c-80cf-e5b7a97b9da8
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task d660c124-0d06-5a5e-8ee0-39bda3af6958
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task df6d98ad-369b-503d-b924-6899b6c90da5
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4a97a6b3-c9b0-5bdb-ac4a-c928a1bcf638
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4c978175-9142-55e3-be69-6814887d0b8d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 98e98033-e776-56a6-a478-455ea722c60c
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7e966442-3422-529c-bccb-c98af147286b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 90de4dba-7902-58fe-b416-c64e44bc1859
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task e567a5aa-c9a7-5cda-90d1-7feba75221a0
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 59a9ef7d-ec3a-5d42-b65e-58a82be5ae2e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3e271da1-4f85-5c93-82d4-3b1aaa3577d1
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 67a19e9d-fc9d-558a-b848-f173a485bdc6
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f531e25a-352a-55c9-a788-3ce773642e74
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 970699e5-608f-5b88-b858-a2b782aae9f3
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task d9c121c9-8fb1-5677-8d71-7720cd53011d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 541872bc-d9b8-5101-a5c7-142ccd9c3612
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 751282f4-738a-51ee-a22f-9a20a9e19de8
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 979496f5-4ad4-5348-a914-b36179359ff7
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 0c51686a-2316-541b-9839-7c24d99f8d33
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c6037213-223e-5bed-8b34-8c8f4f79a33d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 37a7d63a-6cd7-54e0-842a-ce9e8d127f6d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task e09178c2-7b69-5fb6-927b-b9ef3a68e294
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 67ae30df-2d6d-543b-9ddf-8d64f3a06bb8
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task cfa5f11d-c9d5-5ead-b19e-845db78dc12f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task cef36c13-88ee-5893-8778-c92f6463411e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task cf70cc5d-7ee5-55c4-930c-ef3310cd7fe4
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c4dcb120-d831-5fbe-8a0a-f4fe9e257baf
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 386ea8ca-a024-56f9-8c69-21d3cab81991
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task d69f6c20-a71b-519e-8e03-b9ea1cdf90ad
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 83e4503d-1495-5ac1-a1c6-af03a8ae24aa
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ed674484-fe7e-5699-ac25-59e13e85ef99
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 9dc6186e-5196-56e6-a075-816bf4424f82
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 139d1804-2d24-508f-84a1-d970aceb5871
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 070d50fb-37a2-5470-973e-69f1a6a144fb
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7c76e511-12db-57b4-9c8e-9f546160b9bb
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 0fdb2cd0-b136-5490-ad52-65fd332187f3
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ed2d6b74-7639-5898-8c41-9550dbbce82b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 73e7f576-4ee8-5c7c-bd12-d6ad34c7e082
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 311be5a0-88ad-5514-8ef6-a7a39f1cde5c
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task b6254aa6-762f-569c-8640-290a19f0b9cf
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 6bfe82e5-972c-579c-a0e3-483eeb476721
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task a49a560f-c531-509c-a2d5-0b46485a36a8
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 8c1fc6dd-8efc-5576-8fbd-e7b14a5a7370
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 0730897a-733c-54c5-a565-c61a0e09c548
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ffc1ef55-debe-5faa-8ea5-e9ebac1d93a3
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task a7d319f9-69e1-5ddb-a2c4-5e2584b8c38d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 8c1fc72c-273d-5f8f-888d-964921f0bdb0
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 292ea172-05cb-5913-befa-f2801d827ada
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 14bea138-98b4-5de6-ab91-1728738fa473
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 40cc9d08-5837-5461-9d02-c1aba3a161b3
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c47cdfd8-21ae-5333-b033-a6c7cea2cc57
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task fef84065-ad80-509f-9e83-dac4a6688fb4
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task a444f8e3-19d6-551f-b5d6-7aa673917103
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 1cff3492-7e82-5ec4-87d9-a7b0cda9af29
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 08180444-8e34-544b-8742-149dc67bf205
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 05f2c11d-32d4-598e-95b7-e37488f8a864
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 5850e77f-9162-5a12-84b7-be5329f3e05e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 593919e8-4cf9-58b9-8df8-1536efdd0985
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4c3e43d4-0b2a-507e-8122-50443153052e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task be3d8f17-9629-53bf-9e60-fcaf83ea234a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 9414afd9-86ff-5462-a75b-75c5bd198bf3
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task b79f6aaf-bee4-51db-a7eb-16be961c75f9
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 884c5463-3370-5099-81fa-9e8c45238c5d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c1fdd777-8303-5d68-a180-f3f020aa9c1b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task aaf4e875-1960-5955-9710-8cef5640f544
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 02238b82-29ab-5275-b3fc-f90b59a85e51
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 9a9e8413-6a52-5320-b0b4-aa40f6f29bc3
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 2a82f41e-22f9-5c37-b062-3b3aaf48ee1c
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 98417748-cba2-501b-8241-fd4df8a2fc21
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4a3f660b-1d48-5f49-85f3-4bcc7f677c67
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 15208145-692e-5ba0-ba8c-391106b015d8
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 092b32c2-dcf1-5914-bc41-59d80c78f9d6
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 053e4cac-59f1-504b-8d47-0ae1d9f272e1
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 01a55c5d-e2fd-56e9-ba50-8204716b466b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 57138bef-cdfa-58b8-bf22-89ce1af0ce94
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 99d1f48d-35b4-5c5b-98a9-cb2544caf172
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 2be9b7b5-b4e5-5294-84ef-35cba2e974b1
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 1b5f40c0-a408-5902-9024-79fb763d140f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 34b0dd8e-b202-51e0-9f28-03fc6e080d6a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f525fc47-c774-5e05-b749-61184c9372d0
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 6d19c882-5a00-5ae2-92c4-a5768bd4c212
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ad5f540c-432f-53dc-ae99-951c3ea5eb56
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f6b1085a-0bcb-52a3-a65b-01885eea9d1b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 902e62c5-12bb-5071-86f2-382fe96cbea8
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 1bab1857-a1db-5d69-b816-98cb10c2789d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7d274a04-5b77-53d2-bf5a-3d54e5c0dcd7
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 13bb3695-0e12-5471-838e-2f906b2cdf70
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 29587de7-e2fe-5106-87f0-e28ada9f012a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 487b7152-59ad-54fa-b1e5-0ccb2952e350
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 154aadf3-86aa-5baa-a805-d39c20dfb60d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task aed24f8c-57fb-5464-a4ec-764a820eab2a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task cacbbd3c-52a2-54c5-aa04-ecf717af232b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 32a67977-fb41-5091-91bd-45ac4484d285
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task fe5dc2e9-a71e-53cf-adf1-b86be3f46243
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ac451161-b0fa-5842-b4c5-f6b91f7bb15a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task fc01c401-5226-5c3b-afa3-7c6326b9d64c
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7eb052d7-c519-56af-8b2f-32f233c8e6ad
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task df475383-c297-5e72-82a2-23fdc0c56bd6
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ce36182b-0c7e-5bcd-9343-b6b9167f4ead
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ed75d474-c0b3-51ca-9379-4fb7b5038fe9
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f6b1adef-7c93-50fb-9d45-0e0ef83f8d52
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 769f2212-c4c7-591d-8602-220c340daf54
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 8acf975b-2c52-565a-a7f0-c281fff4ca5c
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task a8be9b7f-5373-550f-a172-e25317c7b8cb
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 5ce44905-57a6-5161-b4e4-16aaa5cb0c9a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task e6dc9960-29b1-5142-a9c3-68a6f9bc9ea7
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 650d1fed-ede1-5b85-b323-3673fa50c31c
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task aab2082b-2d46-5931-ada1-a529639d57e4
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c1575f32-8ad3-55d7-865e-b9d8f429cb91
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c26fcaa3-0860-5609-bc9a-26c9998dcc91
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 57745318-e99f-5c1a-a3e1-3714e5f5477e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 529a1cb9-70b3-52ee-8007-70baffd70bf2
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task e1340998-30b3-5142-a670-acb6f08e2339
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 11ba9e5e-aadb-5ea4-95b4-1029a6ac1820
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task e91211ce-b57c-50f5-b6ca-10bf4247adab
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task fce94275-acb0-5297-a906-ca6b41cd51f3
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task aa5ad5d9-d8e5-5ad0-b862-0252f39c0691
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c2d7ff4b-f6d8-50f3-b3d9-44cda9e4dedd
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 20446cdc-a562-5fcc-95f0-6fda777e0f2b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f6b5030b-e30b-5b89-80c9-c65724c567d4
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 83187878-0d8c-5e05-80df-4e3461c3ed36
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 1f75b6d5-23b5-5de5-984f-b0f20727fe02
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 553cdb12-2714-51be-8d2a-c06e59e1cf30
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 0d4069b1-6ec9-590a-a769-aa6e899c98ad
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 76a244d1-a9d0-5ede-ab85-f2541690f52b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 654e5e5a-d8c1-5c9c-898e-b8c2216cd347
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3d429f10-9edb-55ad-ba0c-31bb404f2d7b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 216ac520-29f1-5804-a888-16cad997ec84
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 59cb53cc-2f99-5806-92a2-1aceb60e5cc2
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task b30b6e77-ec1b-572f-984e-f4b65b41aff9
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task b28e6c67-85fc-51a7-ace9-5c622982d3aa
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task dacb1713-1d46-560b-ac65-7dc66df0809c
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 58d85b76-7b17-5220-bd00-fa1441c9dce1
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 8ad9134a-6cc9-5901-9701-f6ac2590a572
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task da3ce583-7930-55ee-88e3-f936de0a3599
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 22f22a52-a16f-5493-83f9-c13575452570
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7da66dda-0e80-587e-b2a2-61a636e53823
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task cfbf840d-60d1-5ec4-b5e4-9cbffe9efa6a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task d25e87f2-e8c7-5572-8359-d7c6ed3fb8cc
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 43ab7e07-5fab-5222-ad7b-2b5e991899a4
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 0c7e74b8-d460-52a6-b923-556710943601
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3bcae2df-29e1-563f-8fe3-10a4b9144a6f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task b490e6bd-fbab-567a-a0b4-095283ec2e2e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 685086bd-4188-526e-81af-f1f2dc433c54
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 15fc63a8-f5da-569d-b618-f217488481a9
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 1aaf0b76-51dd-5dfd-8d04-57d8e61eec8b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task fddb9b28-87be-520a-bb02-f99c1a8e4b70
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 490bd8c7-e793-5e1d-bb77-ab48dac33486
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task b9a3aac8-f3b8-5479-baf0-fb520e8cf7f1
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task d0d4a6e2-de56-5dc4-baa8-425159844221
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 0f9d438c-9e95-5651-9ecd-74011a168523
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 264d73df-ee58-5644-9597-080008c168cd
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task b39d1293-4b8d-5311-82ea-a92deb019bec
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task cc680fb6-3b55-5b42-b841-b804b93044fd
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 5f9a8421-4a41-52f6-8477-076756c9bace
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ee089e19-9b96-597b-a6c0-2411b1fac3e6
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4f033e50-ac13-5cc1-96db-42d76d4a1457
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c8063b98-ac2d-5a32-873f-f93984e4893b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 5986b284-3505-5f67-9016-0156805eae9f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7b6b92bc-54e8-5111-acee-69d25b50f7e6
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 0654700a-8db4-5634-8cd1-3c84b664e5ec
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 1dd9c703-4d28-5388-bd60-f3b11561720f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 10e5e5f0-2eb6-5e7a-b7f8-91428b52f903
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 8ad3fcad-1668-5c15-971b-aa103582a7d2
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task cf0c6649-4641-5d2b-8657-2ea298a16f5e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f31b9ac1-e485-55ce-b8bb-05a6b40170e3
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task fceffd8c-5ffe-59c9-883f-89d29e2e89a3
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 73620516-f7d3-5be0-a6be-823a798fb7d0
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f947dc7d-0132-5010-837f-34ee3f94ef4a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task aae4f5c2-6a06-58f8-9d50-b295c2b76abc
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 5e448d75-0fa1-5d8a-bb1d-69f1b5449dd7
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 949cd691-9f2d-5ae8-bbc7-7b6a17416dfc
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 5aa3c04c-71d7-591f-af04-cff312d8f47d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c0a14060-97b6-5ce0-a5f9-072762939e20
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7e132890-da87-5a73-938a-7126593e2f38
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 955b10ab-6d5c-5975-8a41-564c88b59362
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task d7833833-4a7e-5eaa-bf68-3dcbf7c7a74b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task a5deae2a-d020-50a7-a882-d698dbb58ad4
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 8a0a610e-b739-5d0e-a5c0-33bcd47ec634
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ac8503ee-79eb-5eb4-b3d2-56b6d0ff77c5
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task e573edd6-14cf-5577-90ee-f1d0be467925
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c918bf91-521c-58d8-b361-11fb3a45b7e5
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 791a292a-32df-563e-80f2-b7c0de89ccfb
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 808082a8-dfaf-5d18-b003-85fa17b66de7
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 9f83bf0b-4ebe-5b04-9bea-09f46b37b2f6
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task fedbbcc5-6039-5179-be0c-d5ecee9ddcd8
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task fc865669-b480-51ec-820f-023dd5072a82
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 78949eed-e4e0-566a-9312-a88208007837
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3ed02f81-f6ef-57e6-9ae3-3af2d448ea17
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f9731771-78d6-59b2-b357-78136cf9e5da
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 068f09c8-e5ac-5cc1-aa0e-e83a5cce2895
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task d3bd8ac8-72e4-571a-9715-aeb22ae0605a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 0dee661c-a5d9-5f47-b2a8-1e4019f7bf38
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3472c515-9f43-5893-8e92-2d4faba17705
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 8729e179-dcac-59d7-94b0-849859dc9b9a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c630efd3-a85a-54ed-ac40-246dae7dd090
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 2b86cf9f-1e30-5191-97d5-cf9a1898f22f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ed863ea8-a10a-51e0-a283-0cf5761f14b5
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 531502b0-8bef-5b80-8a30-7680c9967a53
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task daf533a8-d087-5ee9-bd7e-8d096e631bf7
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task e5bf8578-93a5-527b-bf08-a2767889e99c
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3241f8f0-0634-5003-a682-a9d59719bb49
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 8a02145b-1de5-5b46-9743-22061a0eed7d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 044c864e-a73f-5a2c-9c62-37cd3bc2a0a3
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4211427b-5ad9-5851-afda-848be484152e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task fb020e66-ec95-563d-8892-27a446477076
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 262053de-4b59-5222-8e91-31b505df8d2d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7b9db508-3b38-5f0e-9bf6-e1474c3e2f07
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 204241c5-830a-5494-a34e-cea875609f94
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 2f1ca87f-1a1d-514e-bd50-428ade59e261
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 0c0be3ad-348d-5df6-b712-14d86187d0e7
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f5323da9-5b57-5c2b-9136-8f923c8d7f9e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 2da4ec75-d588-574d-9806-0047ef7c2360
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 6b58968d-3d40-5007-8020-3a9a44ac339d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4805c943-384e-50db-ab2b-3f7932bd3df1
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7dfa51a9-b663-5048-9adf-c02b7258bbb8
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task d4e9e326-9a78-534d-9a35-4dd988bd6cad
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 5f8a90a5-4fbd-58b5-b4a4-811645dbbeab
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 533781e5-deda-527e-87b9-1d554f1377e2
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 36b9719f-4fcb-5b83-ad9c-316856f71a92
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task fcaa89a0-c35f-51e1-9222-5096192e35cb
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 68e8a13d-b7ae-585d-b882-968d5c3ebe8b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 50a7897e-2145-5485-bb35-66f666a8c761
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f41d16b3-65b7-5dc0-82b8-a239e11b8ca9
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 5646c148-cef2-56c9-be22-47066e88e275
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task d8f9c3a8-e7f8-5dc9-878e-e5f894f77649
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task faa75603-28cf-5abd-9ed1-14bc542fb80e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 9d09cf38-fdbc-5345-a613-07f6e3dfa63f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c184e74e-700a-56e6-a4a5-0864f770ff30
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task eac38284-3563-51ee-b533-f97c69de90d6
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task af4db187-d34f-550b-9ddc-c1011e1e9018
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 13769b6c-88a7-5d74-895e-8d438712e2b4
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task aa6df956-6f28-5bf6-bbcf-fead2ff314b0
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 18b40b6a-71e3-5a7c-829c-a605b0302036
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 6ee79750-6f41-5a4a-81a8-6d2e6540e0dc
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 66ffee99-61c2-596a-a774-11d1f4cdf098
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 6227ac86-d9f7-534a-a0b4-0a81ca0ddbbe
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task bca7eefa-f876-586f-bab8-b16dbcd14173
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task bb7b3872-1a97-5125-bed6-76ed8d2c3065
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 6451a803-c736-5fee-af7f-5ba885a0a700
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 6d807595-a9ac-5cba-a64e-de59408f062c
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f000078b-97e6-5e1c-8a12-0955620e1c1a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task db7c9ec9-e423-51de-afd6-67a13ad8575d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task bca43869-d2a7-5527-9d08-85baac0b9a38
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task b8fbea81-9042-5596-9819-55b23166bbf3
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 09abaf7e-79a9-5dac-b3d6-1a401026d66d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 427b2b54-7dd6-58b5-ba56-dccfdc880912
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 8a8b46d8-9a21-5267-8774-d12b5cec223b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task faede820-f81e-5684-961b-d932914a1a99
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 99c1cc2c-3ef4-5b70-a281-46480b9b2793
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f27129f1-d3b9-5e9c-894d-061677861fc3
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 2d7cd88a-7bfe-51f3-8340-d459c1e7d3df
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 03e77aa6-5d26-5dbd-b8e3-bc0266810d2d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 98cb6e44-2e2b-5fff-b23e-93ce8acc0552
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task abf9804a-e7ad-5050-886b-974c24cabe05
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 9407ba45-0b5f-5b7f-9178-5c9878f885f5
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c6c876f2-ed23-5363-affa-dff7f524e501
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 647f2811-8e0d-57e5-9ce1-10256ea87a0b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 8a07cd10-211f-5415-b508-48c7282a4ba5
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ebddef95-5bb8-58b3-bf62-614b22d1aeac
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 32a7a336-713a-57c0-beb5-ff4ea1d21b83
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 8e7efe52-2837-5bbc-bd44-7c6eb7fd7235
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task fcca3b4e-b120-5169-bdfc-56bb0e6854c7
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task a0219ec7-cdaf-5e36-aa23-4061e8876105
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task dc5e5e90-bb57-572e-8df3-27b1cc254a2a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 9e2150b0-d433-5673-928b-f2ba3ff5cd83
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c3caa32c-88de-536d-82b1-f333e588021f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ffa611e6-c766-5254-9d07-19157c3f78ee
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 8a83e6f2-06ef-56e2-a748-fad76c078848
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 1ad542e7-8200-5aa7-b153-98b53db5f864
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task bcd15de8-9a76-5870-a89e-165183ad3ef6
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 0de8513a-2bf4-5f56-acb5-e40df3b3ea33
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 57f7dc7e-94d6-57e0-b87d-9466849ea49e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 0e8a4406-ca96-5012-a908-0eaaafdee8d3
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 424a6998-c043-5934-a250-936087b5838a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 50c83a8e-9e76-5f6c-a207-6010a30e3f17
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7133ff32-3e69-503c-88b5-a2fc1439faac
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task fce84b0e-ac16-5af4-9b1b-af1c431c8506
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 45956a53-4278-563f-9e04-f4601ef9ec5e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task a59d1823-1a8a-589f-abab-d021a3bdf932
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c5e67247-adef-5537-b168-3b0eb2de0dfb
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 39790af3-b99c-5c82-a9f7-3600197458f6
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 93f4b37b-ed28-570a-9c2f-9249bb84e28a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 003d039f-fa41-5e85-ac1e-d8c321d9ed17
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 19cd04b1-ef13-56e1-b13d-c21c76c0a5ee
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 9c55663b-4a32-5190-9c30-3c29c40ce833
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 6937c47c-0466-54c8-aec6-420e1f6bec87
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f42a0082-4ed9-5c14-a93b-2627869925ef
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 70136b01-0ab8-5119-8c2d-72472a694374
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task a7837d52-3a4b-5296-ab04-b39aa4c7e0dd
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 1808bbd4-8c16-566b-9f1d-0971f4a95d1f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ca94e5a9-84f2-5d7c-b9e8-85e337d6ab86
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f77b074c-86ed-5cfe-99b0-04bda19ca999
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 9fa30ad4-99fb-5547-920f-eb53a115c4c3
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 44fff97d-c762-5cfa-b89d-a7eeef49015b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 6958220f-7add-5e4e-881b-411da59f55d5
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 29f526aa-eeb8-5c7e-90e3-c1e6891d11d5
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task b25d8bc8-95d3-5fb9-b479-8931948dc550
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4a14c856-a5eb-5930-a7de-23618aacac48
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 1e3f37ef-3daa-539f-a7e0-5682dbca41cc
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f3d9155e-bfc2-5cd4-87f1-ec8ff1285284
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f5baaa9c-50de-553e-8508-67d715ec8a73
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 057d90a2-5ccb-5dda-88e6-a36388fb1ebf
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task a0d87061-e450-5181-a511-d84b7911aec9
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7ca3c246-50df-5af8-bfac-9e5772d71496
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 15364da5-2ed5-5b55-b9de-35619e095f3c
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 608a8c76-b3aa-5f96-98ca-1d4cfba2b919
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 2b08ddb8-49d8-591e-8a56-3c11debcb293
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 1eefc524-c647-560e-a958-b84e731c4058
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 73a24f1e-d1ca-5209-9206-e80febe43704
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4e24bc42-14a2-509c-80af-6215a3d513f7
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 81621a6d-c3bd-5921-b232-327aa8c91942
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task d5a3d819-f3e5-5df1-87b9-15deb5dfdf9a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task df29c309-e4df-570e-974b-d159854eeb90
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3fd92884-d6cc-53bd-8e34-f3c93a5ae7db
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4b4dff6d-7b69-5edb-b48d-4327fe162b12
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 403e3937-3656-5cc8-883c-a919646962fb
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f725459d-3fb3-55ed-869c-5f203550e34e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 1853ba02-0d21-53c3-b30a-017d2f9925ae
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 2d02a6df-002b-59cf-be3f-436032879fef
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 2cacd5b0-40e9-56c6-89e0-f8b9444f7606
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 9001df51-bf9d-5864-ac27-8cb8747260f2
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 189df6f0-5ba4-54ce-91ab-62dcffeebe5c
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 2360140b-4e3f-5da1-9167-aca886643cd7
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task d6e43a3b-08cc-5b67-9064-a91734a5f9b3
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 291eb173-9346-5314-95af-dea37624bc20
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 74884c54-442b-52b7-8e3c-7d8b85067382
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 57eac8c8-c3aa-5b26-850c-d58df5617ace
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4bf42e00-40e5-5cca-bb84-79e2c63f1f42
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 1af3f649-29fd-5936-ab59-d178fe696fc4
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task b0cbc5bf-32ac-59d0-88f7-4a318d0ee966
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 85cf9add-f6ab-5a69-80c2-73453d98ba9c
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task d6d88c85-2773-5c7d-9fef-886f615509ea
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 35bd0e32-c306-5a86-b249-1a772c563410
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f4460693-1030-5392-aa3c-629b68872942
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 2c057126-6061-5683-8b73-f70a07388cfd
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 94490496-e851-5aee-8522-f13bfbef4b10
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task db753456-10e7-5294-a4d1-964dbdbf2da5
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 0939699c-8d19-5c7b-99a8-108d4b85e9ff
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 19e9a5aa-211d-54a7-a9f7-2ca8a45a40af
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task d0f1f12a-0dc9-51f1-b89f-15f20fd83208
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 48f4e16a-9b0f-5d13-a88d-2e52009d8f6b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 2a302b61-463b-5c98-942a-7aa7838edcea
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task a1ef689c-7098-57c3-a993-eb3bd9b9d9db
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 255f6b28-4b16-5277-9e0e-f4ebb1f11ae8
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task b9b77f68-dd56-57c7-862f-6ef47a1f9fc2
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ab709268-d20e-57d9-ac40-9f759d92e204
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 6ebb45fd-1c6d-5165-a35e-f21937d193ba
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 0e115b0a-af58-50af-b2ec-1b29d7ed109b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 17c17e36-951a-55a2-95cc-ffb1cf935033
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 44586888-22a2-56f8-86ce-9da0c192a083
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 09a05185-6a7f-5fea-8ec3-cac557cf3017
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c6768b98-994a-51c4-a0d1-4a709b6fa3f3
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 0a6aea03-033e-5221-bce9-2ef3f514dbef
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task b8f35574-f2c9-5e65-8588-3c3b239305c5
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3a686574-7f56-5d80-8185-3c86eef67a3e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 8594bc69-d6db-5dab-94d7-51bf9252d23a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task e4b1c748-a2e7-5178-9790-6a7b8661c7ec
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task e5614d10-535a-598e-b7ab-0e91e2b4668a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 627010fb-fbfd-568c-8c21-dfd43c8bc3e7
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ea1feaa4-1cb0-5401-be6c-6902591bd5d2
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 1950aef5-39c4-5791-925a-58f8d449ce16
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 86977bbe-6ecf-5a4d-adea-ceb0f03c932c
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task cc6bd20a-d9d3-5d97-a03f-6249d5008dc2
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 88a94269-f052-5576-9ef8-130f3ff26288
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task fe698c9c-2650-50f5-9d12-e1ea956dfc77
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ae5f4352-780f-5d44-a715-d9533a14ce33
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 56c6ae89-7f35-5914-a5e1-ad6deac8b7e8
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 6d9abd8c-5a10-5db1-8bfd-42067c5d5102
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 966933ba-9ab7-5f98-8106-25239342022d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 693c1456-910d-50fe-827e-7df388e7d0c6
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task a3f5a5c1-4ec9-5d32-b991-09e8229420e1
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task e2839567-0a78-52d8-b3cb-0aaa7ae75710
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task a7af2cd3-8145-5b92-a496-8ec8e4918480
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 49735500-bb08-5f07-8fdb-41dc04117087
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7b2c8c20-8ab2-5218-8418-8043c2fc0640
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 35434916-6a0c-5901-b066-9a60d8a317ad
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 444f5bbf-97f2-5945-9c0c-18aba154d209
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ea7c030f-857d-542a-8cd2-aa6cb05614e8
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task bf92b9ce-273e-5333-8838-f20e63b9a88c
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7bf3d14e-52c7-5e39-b3f0-e2d4c9da5df3
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 6b6520b0-7519-5fbf-b053-2909cef75cac
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4d74da13-0869-5d6f-bcdc-7b2b0dcc5496
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 35526ae3-1f50-52cb-98fa-526d56b05312
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7083f42f-d7cf-5348-9da0-af6271404ece
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 46b3b768-c41d-573d-a348-a8b97e32632b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c4ba61e6-f3d8-59f2-af81-44feaec792c7
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task cc197f17-dbd1-52ea-8e98-012d6bfb7d49
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ec11f84e-1624-5a37-9559-de8814854178
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c46a42df-1742-59f3-8b1b-85d5cc2e36e8
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 42a290a1-f90e-5121-97de-99e89bac0a8f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 0e135aad-e2eb-53cc-b53a-a8063e9c8c3d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ea4c4565-82ce-5e11-9e3a-751f322cb9db
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task cef79d4f-9d40-50ba-9203-bb1ae00490cb
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 5e970ceb-73e6-5cb9-9250-fd3ddfb89af0
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 00258cf0-5f69-5ea9-90bc-c1332fa01b85
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 6368f122-9b1a-506a-937b-8e6c9dc1a701
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7a0db06e-425a-5e4b-be78-833a776dfcd7
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 87fdc360-4553-5a88-b241-73ab5b2e9d68
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 149e86ab-1d63-52f2-b11a-1136cee8ca8d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 0f8ba2de-c8c6-54ba-99a7-96875cc05a51
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 89ba05dc-d96f-5cab-8151-6cfc82140b1f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 87477726-7002-502b-92d1-bc3607090b04
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3812ef9e-7d47-5cf7-aa87-d4422e6b96b4
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 55230d18-9ea1-56e3-a883-e5a79a7057f4
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task a058c231-3395-5105-a90d-93e0394a637e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task abe261df-2863-5587-b155-aa8bfc538a34
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task cc549564-c75d-5a6c-96a1-3b1b78ddd478
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 511e1110-b6c6-5340-ad18-704bc570c0f7
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 0ec82191-b159-5638-a011-b710d36eb0b5
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 44c23a6d-0d8e-5442-b1eb-1edd736c1de8
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3000ecaa-fd49-59e7-897a-41bbed5c9297
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ce240bf3-9429-547d-a740-779562d28fe9
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 294a5f92-050d-5963-9f59-a875d96096cd
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 611577da-4e16-5ff3-83c9-60cd653f7e29
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 749b5fee-6421-586c-9f9a-7625eea34df7
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 97afc089-fe90-531c-9ce4-8120a5078e0b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 8fd06e1e-67e8-50ca-be82-f00cb3e6a2e6
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task cfb7d044-5b7c-5241-b4ac-be1195573d2a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task e9fc8efb-b8e7-5b73-9a0f-b16e8d327307
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 631c282d-feda-5dbc-b2bb-9cdcd8adf492
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7cd4ec98-a5f2-5773-b04f-395af06f045b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 89bbf18f-d1e4-57d1-bdfc-717a3494ba58
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task e327b19e-0906-544b-97d5-34355d088dbc
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 82592e4c-f2d0-5f9b-b376-e23d94e11b25
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c1c35126-44b1-52eb-8abd-a5a6818b93eb
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 50b4f590-93ee-571f-9ce3-730b434912fd
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task cf767467-039d-54ca-a37b-580e3cb93641
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 349be3a3-c895-544c-8d29-f29ae8d882ee
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task bdde6c01-48e1-5b70-a2f7-4b92eb75261b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task b07e7b0a-7416-5868-836e-a95c6ac3b046
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 140b082b-d3b9-5984-81d3-ddb5f45de560
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3dad1893-dd7c-51b2-8832-2c3ea90275a1
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 9164da9c-49fd-5ce7-9c8e-d311428c4750
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 170296e1-6db0-5bd6-9fff-8d7e6f6b2b87
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 02c0d840-34fc-5e60-813b-363987f718c6
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f26f6e0e-1a42-5948-8e80-5ab1a778fdd1
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task b5bd5e95-7fc3-5689-82be-fb542dd18b04
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 242b4161-8787-520a-b94d-730e77b8286f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task d75e287d-133a-5575-a047-a41f487f4468
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task e612d8c3-8903-52b1-b409-1660151ed7d7
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 53747c4e-077c-5d0b-9018-0007a393c05a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task d68e2ec8-53a0-596c-9a51-eb3dab52b258
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 30f02236-f349-59e2-aede-f77d193db5bb
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 58864297-db5f-5600-8224-fb3c49d6bce7
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3ee4d2cb-e56d-54ca-8604-d3d9f21b6fc7
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 9033e223-1bad-52fe-ade3-1facba19cb4f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 41466cda-3e99-5fb7-80f3-10f7f6a672e0
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 5a677c04-5978-5978-a50e-406d77dae560
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 15aeb8cd-a9e5-5c82-9f7b-78282b6d7e1e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task eb855de6-0767-5766-9f70-3b113152d1f4
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c5a0bc6a-1afc-594f-8109-01fcde9d16c4
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 615246ca-1dfb-59d0-abc9-8b27813f5a4e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task a10c54a1-3ddf-5a17-a3c6-0ea1f712f81b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7d1ac656-5eaf-571b-b89d-9d652b4efafd
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ffa8b3a6-f9f0-503a-968c-3eaab30963be
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 043c11d2-e5ce-5a2c-b2e5-4c2101a1569a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7e5a30b0-e5bf-51d3-8c99-01a3e536f134
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 309d1803-a8e8-5b60-9d44-3c76edca4dec
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 1433aeef-d5bd-5ce1-941c-cbfbbefa6586
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task fc4f7063-f7cd-5ec7-8721-9fdaf77da21d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 180316c3-0fc3-501f-9c30-dee1edf149c3
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 50ffbcb1-b6b0-50cf-bd35-4f66a730d0ad
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 75d300f4-beba-5ecf-b841-09e9923b2443
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task db0c5327-1359-50ed-bfd9-230e5951540a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task dbc6513d-e873-5ad2-98c1-d11b367e3dc4
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f15c41e8-f519-53c9-924c-09202a3a9b97
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 5bd2d2aa-05e1-501b-bb25-ef88e4034d32
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 91f795af-2fff-5f0a-9069-17f485d9d19c
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 00637039-0de8-5aff-8c0c-ed3df13c0d35
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7fb3bc46-4227-5ae5-a9ee-f4d31600c83c
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task b5749d1a-dee9-5517-9d03-237076ec17b4
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task d4baa975-3872-5693-96dc-fd5d59e0f403
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task e3311bb1-e3e0-55a1-ba60-d0685e108748
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task d03811e0-bb57-5872-906b-234871f40c42
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 50299489-9836-5990-8503-a539be1b41a3
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task b3659b1a-1250-5430-b53f-987e95643e8d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 819400b9-0a5a-5a12-a536-97afebf6676a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 789c5089-b5d6-53e9-b7de-92a745fea255
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 39175a6e-574f-5b05-a71e-b141373a5fb2
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7ce071e8-705d-5350-8ced-3bac024fbdff
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task fc1be744-7dc5-5921-b3e9-966ade208df7
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7ede73ac-09cb-5ad9-8f6a-fb1ad8cb8703
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 6ac43b39-f22b-5944-9008-c861511b3ecb
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 0837ebdd-fc9d-5353-a49b-17c046d6425a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3c05b4ad-af15-59a2-bbc2-918dab14a78e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 256cbbdd-0f66-5c2a-a2d4-02cefb3400ff
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 5bba8e6f-84a5-5462-85f3-ca35e466a6d5
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 822e92fd-5979-5507-94e4-45eed1a60247
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task d9b0ce6b-565c-5b7e-98e6-f066dea52508
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task de9f0d9b-94d3-5162-a9cc-33e94c454687
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4ad8f87b-e42c-5790-aa93-f784e1839c78
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 717adfea-1db4-5329-9294-2adcdf81a5a7
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task af1eb696-f0de-5a49-8f63-2dfc81b91f01
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 01c81d4a-d0eb-5350-af5a-9dc56484cc69
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 717fdde3-e59f-5ec3-aa17-6baa73fc6338
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 51f7ae23-8f20-5106-86c4-c143b7b14762
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 9bc24655-5032-5266-9d9d-e43f4ff30b9b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f04369ea-e888-588c-8537-5f2eda5691b9
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task fe9411e5-58e9-52cf-9519-3c3ff18d7e62
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f9925d06-033c-5061-b36e-88803bee24f4
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3270665d-9d32-5d56-99b8-ae626b2d6698
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 9ebf2e58-a28d-5a4e-a62a-b6d67bf2848d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 9a872c1b-d075-542c-bc74-cf3a772eebe2
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task e6f32e18-baec-5423-ba4e-8cb662a058c7
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task d6a431d0-0d55-5029-be94-d7881f20e04e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4b8c9dcb-c841-5da5-83c2-1984cdc97267
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 1c6fde24-20f4-5340-b80b-7c54f50d57c4
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task fd64dc72-e9d3-552c-b03d-55a8d8da28a5
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 2ce62826-2ce1-519d-9ce1-52073294b828
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task e2fe1c2e-29bd-5add-a9de-f593814ec72e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 66c082c1-69de-5502-b71e-4a1af41bd70d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 88b986e7-b3e0-5953-ad67-b9f29adf57ca
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task b010345e-b344-5a56-a3fe-972aeddbe4f0
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task e64dda78-f4fa-5d57-89b4-ebabab36f0d7
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c2b0c244-3743-52a8-9cba-0c1625dbd9bd
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task dcf7efa3-4dd8-580a-9468-fc02c5fc1a0c
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 55ee1ad4-445f-55d3-97cd-aa135fb94e61
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 16f8addb-e51b-5533-8e5d-27fc19084f7c
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 47837b5d-47a7-5d25-b599-ab667262b463
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task aeaa010a-2ef6-5ad7-8fc8-34628761fe47
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3b19e8ea-0cc0-5e93-9a28-8f9cfc34e5f9
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task cb3b9377-79d9-59d5-83f9-8f429b7e2039
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3c79e52c-44a1-5678-8e04-f2f906c062d6
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 620fc528-1fea-509b-b96c-2057396fde61
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c0fc28c3-b072-501e-b67a-6ee517894fb0
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task d13c07ce-1007-5662-b04a-f554414a5898
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 76923811-b45d-532f-904a-aaf535d7026d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 668c290e-70b0-59f2-a981-c055d5a28aef
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 93f82832-084e-5320-890b-51f7565d2894
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task a9ca8428-e999-5a72-83c7-5e80c3ed190b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 234b361f-a5bb-5b77-8a6b-df02ac187190
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 2bad0f7e-f5d0-5346-8186-dd00db2ff9fa
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7e2de7a7-41ee-5aaf-b6af-faae0b28877f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 60f6460e-ff95-5959-9c78-5c0e88380014
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task a1d349db-751a-5140-be75-159f8192cc30
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task a995b06b-d235-51fb-b241-d6bf75d03e96
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f039f113-9e6f-5390-addd-d8cb9073f0bb
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task d1dd5bce-5c06-5969-b8bb-67a03c1d0c31
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 26eaf1ab-515e-5d61-9cad-c7588caa7208
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task daff2e2c-74bb-5889-a64a-3afb7c9951a2
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3ac5acab-a15c-576d-9b10-c31e9cacfe73
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4ba3de52-458b-5a4f-a21c-03596d9099d5
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task be97a27b-7612-55a5-844d-bd471a260853
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 1c9787cf-8de9-5ea6-8709-84d1882db790
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task e7b1a6da-47b7-57e9-b573-b9744160fce1
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 43dcbb1c-e06f-55ec-ba89-f392d52368c2
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 353de379-7c13-5ea5-885a-35c17f65b5bc
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ad7498c7-01b2-5ab8-9fc4-c76cf103fb9c
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 8f62c8d4-eb15-5ee1-a933-f4a3c58b41f8
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3d0f29f3-58ac-509a-802d-88277c1d0075
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 379e1cec-db8a-5cf2-a480-5a9a979de995
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task e33babdc-c0af-55e0-91b1-fe748eb5198d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 820b53ed-6c1c-55e6-82dc-362fda3278ed
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task cbb45b84-9699-5e59-83fe-76abf05c88ba
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f8e716b4-220e-51bd-80f5-b256abbd00c8
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 099b8f88-a0f1-5310-8f6d-b2df469aba02
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 0192e497-64a8-5a87-81b2-ddd2bc791acf
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7c641470-6462-5d46-a6ca-4654b5b4ece3
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 5dc7a549-3867-5530-8215-7b3961529a32
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task bcf97ac6-ad96-5fbc-b6b7-efd72942417d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 1baef3b3-30ba-5f7b-acdd-aed8f6bdb3a6
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 18587324-89ac-5e2d-a1c5-e1c95f733d08
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f363f5af-2194-5c26-8140-af3cd73ee98d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7109ba8f-4fda-590b-a7fd-d19ab2ca63bf
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 8cbd57fc-c223-59a8-99de-34f58a2773bd
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ae715f08-132a-5d0b-8550-6a5804c2b2b8
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 05a62969-ff5c-5936-9436-2fc3008516b3
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 00b16111-e6af-5384-82fa-7cec30c361bd
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task a31503e7-5fe6-590b-98b1-2ad64a652b60
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3f20814f-20dc-50ec-b7aa-7a7a6e84ce8e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3ca92c02-9df8-5781-97d4-9db4e76caeb0
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ca65fbe8-f140-5b40-9627-35bc976f67ab
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 50dac812-4597-55f5-be26-ab8e055d652c
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 2c5a254f-8e24-55ee-8263-5aaabbed5975
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task aedea3d1-465b-5a25-be01-9700b0824ef8
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 76e6c369-9a90-5dea-9071-3bf66739ac1f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task daef1731-4e0c-5b53-a9e9-2019c1229b6a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 84165059-d8c9-595b-935f-f6a8620e1741
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 28a235bf-b73c-5bb2-9cc7-4432b9ae1081
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 16a8614d-783d-58ba-9205-23369cf9081f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 358f1333-9766-51c9-9920-cf1a1d541171
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 65ab1f7c-eb9b-5fac-8a7f-32a8d99c71b4
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task a6141fac-c4bf-5045-8528-1d62643e3b7c
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 66c43190-8848-5a9e-9437-9bff3359da02
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task beac5ff1-1df4-5a9d-baa1-888c99696351
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 9ac2bef6-dd0f-5689-aaab-19f25bcc8032
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 264e6469-7d08-5eb3-92c6-831883c1a1c7
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 66d61f7a-da01-539b-8b54-982c24046c0f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 69088549-8659-5d8f-8d13-88d10d66141a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 317279c3-f8d7-5522-9dbf-87c73bbf284d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 158625ca-3cd9-51c4-8ef5-0731330a579b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7cfcb3cb-ac24-57be-90e4-5d1af038812f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ca0e2536-0e4b-5e5b-9cb2-e614599401f9
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task fa05be68-fbf1-52b8-b89e-29fa98ade5fc
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 78f612cc-73c0-5a64-8be6-b2c1c24f8afe
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task cb2e49d3-f667-55c9-b1bb-002d4c78cc32
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7fbb3741-495d-5caa-8ced-113af4ab88f1
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task fdf281c9-2e14-5a58-8a6a-5bdd17cd642a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 70ba4cec-6bfb-53db-bfef-3a4165be0693
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4e8efd3c-fab7-5b42-8c76-ce1f873c5898
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task d48081a4-a60c-58a8-9d65-023216f5e642
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task b196ef98-3024-55ba-b60e-e43f59e5bc71
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 524d91a3-1ba4-5d56-be6e-eb0d6657cfa6
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ea1d4427-4be9-57a9-bbcf-647e4bf0a354
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f9c33067-aecb-54b6-8d13-fc6face8868b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7e77c0a6-8c3b-5a9d-b8ef-600e784021a2
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ab92c8f6-f51f-5e52-9fb9-3e83d13c4942
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 12572ada-b098-516a-8e0c-83be7cb46353
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4c15a830-0635-5b69-96b5-b2ea32d0f43f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f43dbcd0-66cf-5d8f-84c4-11b53838c765
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 37cab362-ba52-5bd1-8f77-cc38bf4af669
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 96a83686-3f39-536b-a314-666826bb011e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c49ea8cb-697a-594a-9410-64c30ef5f631
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 2494dec6-d7d0-56a1-a8d2-22048c86d69d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 9ef2c9be-453e-5812-965a-70a442fcbf4d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 8d1d20d6-7aff-515e-8270-5bbfdebe9106
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7dffd8c3-4ccd-5461-b9cb-1ad0ab21de52
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c3064081-d335-5077-aa8d-a9cd3b85284b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 6d70bf27-33e5-5452-83b6-f2c053a87d47
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 93237ed9-b933-5743-8614-421d384c1d65
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ba368e6d-2d0e-5d07-adf9-cca87b470d53
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task b2a6d7b4-e0d4-5a57-bf83-3979eebeecbd
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 897d4a70-911b-50b7-be89-e036aa6ef6ce
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c523701b-9082-530b-8c1c-69461b161de5
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 2b24b890-2962-5b7f-98bf-ddec6b14a011
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 2a09af56-7e81-5020-a019-c6ab14727567
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 78377590-ccce-5836-b29a-a6a203de0333
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 35161e28-d077-5597-9c3f-34bcb3761615
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 300f8f88-898e-5430-be1f-04fc49708686
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task b35e3ff5-3c6f-5c7b-8b56-4f4841a50059
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 29aa87f4-04cc-5df5-b011-c6b2feefb4ef
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task efaf87b6-b87a-5743-ad32-c57b8acac3fa
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 6dd425b0-c94a-5fb9-9925-fc9a20b176c2
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 21a3fe43-763d-56e8-af7f-9b2c8278849b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 0cdc71f5-9a71-5a3c-86fc-27a037adf4db
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 108b49af-6867-56d1-82e2-df9d7a4e8c5a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task bf0abfb2-9af8-5206-8d0c-13b795978e05
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task d792c573-e9f7-551a-88ab-34fb5e644c20
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3527d33e-f477-5de1-b4aa-6a54c73ac724
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task a79cacef-bbe9-536a-afdf-9713a8add5be
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 69a160ec-b102-5992-8189-de43eb798ad4
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task df59eaa4-ce75-5192-af84-911c08a3cdeb
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3411ab6b-70b2-50d1-88f6-28617bf2a917
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 817c4524-ace5-582e-8058-32da15c08b22
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task cce5c657-fee4-543e-bd36-b26684c22013
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 505ec041-c344-54c2-b805-cb7ce75a69cd
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 87f9142b-9d0b-5098-9c1d-35d34ec153b2
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 784c3a10-751c-5fdd-af44-b2b67f54ecd0
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 6a63951d-93d7-5049-98c9-557af37061dc
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 1721e565-4319-5117-8304-30330d1c4974
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 2a8892b9-360c-56bc-9135-9b88b0072f30
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 5b3f095c-1a94-5bee-872b-bba30080c5c4
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 99004f4a-8926-5137-b95e-fabc1d109b35
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task a2b0e0e2-c994-50fe-8fd3-f549d87d1cdb
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 10ba69cb-4717-5c52-8cbc-6809c711cb15
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 2454a2fe-e31a-5bf6-9343-3f7c0f29e389
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3700425a-3489-56bb-a139-4669eb57de6b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c52b991c-3534-5a79-876e-e8700ab132a8
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 294adcb6-447f-50a3-bfed-03b541e7c87b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 99a1d2d6-5d27-5a6a-96ae-9b15e3d37b51
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3916fa70-e06c-5423-b47c-e567d2961f9f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 64129767-6dc2-58c7-a341-b60fc5ea9b82
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 55e3bf5b-f68f-557a-b0bf-45b41ae41dda
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 17776786-035c-5a71-8cb2-abc690b91124
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4f73d553-a210-5530-887b-08c6d462f388
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task fdac237e-74e9-5f5b-affc-ae31c2ba63e5
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 9e84822d-0857-59d2-83ab-85571fe0ddd4
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7ec32e62-9cee-50eb-b1b9-7f08c7db5137
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 41a23e33-940c-52f0-98b8-147fc83d72ab
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 299c4a14-d647-5d36-9ca7-ecb000a3c286
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ed692c50-dec6-5628-be88-ebc7234dfbf7
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 334febaf-424c-5023-8651-bbd1d0159e98
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3cdf8287-6f48-50e6-9f52-1790e94ae117
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4e2e28b3-e649-5cf3-a408-375de5552eb4
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 6dfc69a3-0c83-525f-baba-5ad0aa284be6
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 92f98e23-a4c7-56a1-a4e0-c7b5699d08b4
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 99623a14-3a94-5b7e-b032-933d2aa014c2
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f42ecd81-8033-57d8-9939-8cc12663d757
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 30cab72d-d42a-52a8-a7e4-771acc4a3649
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 2f461a62-0ce9-500f-a351-bf0b0af6cf0a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7719817d-ae6c-5147-a1bd-8ba64a327858
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 2bc521f1-bcca-52ae-b892-d891e19e7204
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 0144ba42-12d6-5048-94ac-e38c0a7686c8
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 6bacfdfe-882e-5829-93aa-2f1df23d76b2
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ab78e47d-a650-54df-a07b-2e26ba6c126f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task b0f98c1f-c168-5e5e-a143-aa1375dd3b84
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f40b567d-ad27-5b6b-ae9a-f94627541fe3
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task b7adcfcf-31b7-5484-af9e-d843837c86e1
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task d055deee-fc75-5d46-a760-0f4889124bd6
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7b4d3af2-d06b-5d57-882b-9822ab39a20e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ef72bac4-ae70-53b2-a067-4bde9b280966
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 8061d7ec-5307-56fc-9d03-b106247aa46e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4ce9905f-42a7-54bf-a325-6d17de5afa3f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f7e9bd87-fb35-565e-9390-1e13fc70e452
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 21f42c65-c461-5606-90ab-1f094be6de19
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3f58140b-238d-52f4-9bb9-043bce740a69
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task e8bb0121-2b77-5688-af65-230b073261b1
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 1531b7ec-fc77-58d4-a067-2e566d74f43e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ca0e73d6-a1e4-5779-81f4-7c7121c96aab
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 5ca0d769-6c5b-5736-b644-693f8b008aec
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c4482940-0cc8-5b81-a31f-211d76a29ee0
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 9bb53b8f-cf35-55d1-b32c-209717aff57a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 78d421a8-32b3-54c5-b8f5-bf432982a1c9
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task e7d435ec-f463-5d57-a89c-d0c5861688b8
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 6ed1034f-882a-544f-bb1d-614c47a6ae5c
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4010aaeb-28f7-5704-bc35-a5286b7efa1f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 6f688c73-6017-5172-a270-a69a49cc21d7
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 23061d3c-2349-57bd-8768-131396ff9e65
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task e0504e0e-b9d0-5537-b118-d60118ac84b2
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 0c46b075-0f7c-57f3-93cb-0b8b74134b7f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 42c3fc2a-d83f-5e0b-b4ba-a5be70cb89d0
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task e4755384-140c-5b1e-be59-b64e3f70217f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task e70d84cb-254d-5996-b2cd-18d28597016a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4fbc4ac1-b8f4-56ab-aa7f-b2d6be16c174
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 0b148282-379f-56d4-acf3-0aa6c8c33149
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7fd94697-3f6e-576c-a094-ef764f2dd71d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task a823a813-699f-5088-b668-bf7a266cd7c5
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7646fe3e-a604-5dbd-8983-86e6ce7c07e2
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 34183dd0-407b-58af-b9c7-bf56ba110fb5
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 503316f8-87fd-5355-9160-d2c1b36728db
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 716fa4b4-d0d6-58c1-8b44-376687139679
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4d1b6c58-7a29-5d54-b556-fb6c07cce0e0
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 79f6d6fd-afc6-517a-a329-a41b5c449507
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f5a8f54f-5741-593c-9dfb-835eabec585f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 9e355575-7945-566f-84b0-0a462b234a37
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 88429210-27b3-5e99-8dfc-41f07d429901
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 5349028e-3149-5575-a007-797fee0026da
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 99ad995e-4574-542d-acd9-b00cf7490422
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task e6c23235-76c3-5bfc-b3ab-458a9c4f3780
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3dd00827-d4a7-5cd8-bd40-fc4c41ce04e8
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 01e33d50-446e-5a55-8d63-8f7a9a9c368c
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7e5d0b05-3da5-5b2f-b217-bb813e9a36a4
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task a754ca49-6d82-59ea-8951-ed5acadabd1e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 23191eda-8a77-5364-8e80-b4b208681eba
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c8f8c1ed-0a6f-508b-b1ca-785ab8d16272
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 1e32164b-ee3d-5f1e-b1af-a2e6d93a9d0d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task aa297c2e-bb2e-53ba-a7fc-4030d818d879
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 1fe8ac3c-949f-58e6-b21c-94bf9dc1fb50
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 407faf5e-b7c6-5d90-a58d-ffbe889df1bb
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 2b636611-b8c2-5326-949d-8dbdbe7e1809
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 2143834b-8344-5918-a04a-fdb4aff371fc
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 6f809dd7-ddd8-5651-93eb-69667900defb
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 75730a14-0983-5d6b-95af-19a1c237430c
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 002150f1-f12c-50ab-bde7-998d4eb64924
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3471b6d6-47bf-5756-81c4-18e25fd495bd
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 9215ce5c-7a63-5947-b849-6fc7fee22ea6
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7732b05a-9c73-5c52-ac12-8e6dccb60d46
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task b7b0e8a3-bfe3-5ae3-a368-0e048a04d844
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ad0af415-b2b3-5587-bc95-0ec0cfd31637
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 6bb2e379-1ccf-57a0-8b7f-9008dfba2675
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 8a76815c-efd3-5f93-809f-0bce2ce90bc2
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 6538bfea-cba3-5190-ac8d-fb765ab10d33
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4298a224-790a-53f2-bf39-40f591288b52
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 6b70ad5a-57c9-5927-bb0a-6d148b35571e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task a3854725-aeea-5be4-b992-f473d3267497
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4f6a1e9b-e665-5209-969f-356084af0752
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task b7658848-aeb4-5565-82a1-02393b79e046
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 6b22d56d-cba7-51f0-9f71-a985aba0b72b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 2d7a22ac-f0bb-55d7-be23-b1fe6999f226
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task eb670d70-9b57-5bea-8785-90ff6b44453d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 27dd6f5a-e7c5-5cc1-9d1c-2f876b77f07c
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 5cb3ed5d-cee6-5c2f-862f-6afc0cdfbf84
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c596dbcc-2b4d-5e97-8f07-e950677cc117
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f2a0b0e9-edcd-5ded-a21f-30002c513a4d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 90286c5a-3881-5115-aef0-579eeba059d0
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f50fa11c-2d8a-5a1f-bc77-bb911d3d8c0b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4f178e55-1c3d-5621-b47d-8a4da2a9a62d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task e40aa1a7-4d68-5eec-99c7-21d3071b65bb
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3d87a9c7-810f-57a9-b391-487655eda940
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task fd8084ca-3b97-5d2e-8cb8-118f1d3e0a5e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task e3085110-6498-507a-824f-53c9fbdbedff
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 8aff1671-6ff1-56d7-8c5e-b287e101585d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 40affd58-53c5-50bc-9285-791c1a1d05d4
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 16d8c53b-16e7-5878-95df-057a6b5831bb
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 0741e64c-8ff2-5fec-b7b6-a6b6bf469f0e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 5231d6b5-9a2d-5d7d-a008-277a3fb09176
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 154cae4e-a158-58cd-9b78-1ddabeba945e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f0b3f5fd-1144-5022-a391-8e5c35a7bafb
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f0ac5aaf-69b7-57cb-9227-b0d809ef09ed
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c383b113-7574-512e-aa8e-a0fb1a3266d9
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f770989a-e6ce-5024-87a1-a3e8d76bc3f3
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c68dd53b-72d9-561e-b077-50729c5db9ec
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 129255e6-277c-5046-8fef-49bc277da01b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 043cd455-47e3-5953-be22-4388514688cd
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 2e733eea-a100-5d10-88d7-bf7076943fb6
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 92da4f5a-d793-54fc-b833-348b55653f38
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task fa62b9c8-e5eb-58d0-8672-2ef2cbffcdeb
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task a0e799d3-cf59-5cbc-a182-d693f4186908
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 54f55b54-e127-5a45-9ee9-e5e24ad4953a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 47293219-a623-52fb-9d8c-27983d16b4d7
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task dcf7fee9-dc0b-58da-87d1-0de6cd7d6062
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 2c9f5a14-b19b-53f5-972f-348865d3f432
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task d3adc0d7-0faa-5595-85b3-3628d0ce6af6
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3a0ebc11-0717-525e-b7af-273b5c32a7d3
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 1d102ccc-7add-5bf7-aed7-454ae26fb01e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f9bb8e78-5052-5e30-ac2c-59a1497f9148
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ddbbfc73-f935-5320-86e2-5222afb6b946
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 665c91d8-c266-558b-95e4-88902205ba5f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task d49ce7fa-7d1d-5df5-a266-1d06e657507a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c90fb889-8ddd-5580-b9f8-f6e3e9fe7656
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ce210d39-b818-5843-8d29-b154f218519b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 8b466e76-881b-5486-8813-b81c34a6eaa3
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3b16262d-7bae-5118-acd7-0f4f464b8a95
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4c1f92c9-f70e-5344-acce-7a592a1be914
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3bd3479a-ba8b-51d5-8860-2fa83a6582cd
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 65bf7ebe-c6d5-59a5-95dd-a82adfd47f93
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c2c159a5-c34b-52f3-8780-9ae1bb64a15f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task dc51807a-ecfa-5cee-a4d7-c2ba707ee649
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 0ebf3ff1-d1b4-5a95-a1a5-c5c2657f11aa
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 51aebda8-a647-5b19-9a83-b770bff0d4d4
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task fb38b637-940b-5caa-beb7-3d3f26f19917
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 98e7618e-327b-5dbe-9409-5ccf9194a642
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 9613e707-c61f-523e-b833-44d4b8fba207
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task eef0be75-2be0-5f92-bde2-2b431487f5b9
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4e923072-bd92-5189-95a1-b71c7d8ee785
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c491d1a2-e94e-51c6-b0ce-327d7a2050a0
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7adb34d6-e97a-5773-ba47-ada056e8515e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 427ae929-3382-5b11-9682-00afe50dd8a6
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task d0338076-4a24-5f35-9c7f-d6df555f055a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task a9fb27a0-ea70-54b8-ada1-18b53ec379f6
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 03fd6988-e3d0-512c-b9c7-0789861d8ab1
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task fda2a783-9826-57c1-8619-8a20024a8071
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 66f9529a-ce35-5e0c-981f-4aa7fa8cc725
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 5a469631-25de-5c3c-95d8-c229848912d8
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task b08ef515-9c46-50a5-bc82-5dba4a80892f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 776ae53b-8750-5a68-ae69-0f587902b027
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task fc53a8f4-c20c-5f40-a753-70ae55c9375f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 5e8ac61b-04b7-5986-a924-4d10f7fd6e6a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task a3360fae-e65e-567e-9fb9-40e4bb2e7b25
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 9f37484f-1070-52c2-9ba0-703b1f5ba484
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 02c61d5f-009f-5f91-b736-1c92298478d9
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 2c4af55c-594f-51b6-8b82-14bfc0a7e93b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task e295aaab-c4a1-56fc-9ef0-ab86dc5e9a7b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 80fa2f21-024c-5e09-a0f3-91439deae6bc
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3b9b8d46-abed-5d2b-9243-ba09bc4ca718
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7ed0d16f-c652-5a27-a7b3-4b52b7d99b93
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task e75d5128-98ce-5cd7-b4f8-6b5030b5180c
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 5855275b-a53f-5d62-a58a-9cdd95ea6fb8
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 9491558f-cb4e-5b3e-9b24-5cee1cce7904
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 2cbf2fb7-27a4-50cc-a7ec-a150ad80395d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 2660d819-67cf-5a8d-8e3a-65d1a1ac9c9f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 9a65e8ba-5b6f-5786-95d5-f4935a392eb4
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task afadeca5-d140-5c43-ab70-45d081de08fd
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 026bc60d-c43b-5196-8f06-269408cf436c
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 29bacaf5-f2dd-5165-9462-12aae083101c
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 9fb9da04-15b2-5ba1-b8b8-789713146f4b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 89e89885-1962-524a-a41a-e22788a98070
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 9a5a9d7f-a6f7-5ec8-a79e-7973a75f7cbd
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 24f9ff3b-0cc4-539d-ad38-17f46570136b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 03834433-e0b4-56ba-b454-140ca3f558f1
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task e72985be-0230-54e4-bb66-ef03f7f1eb65
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 40981358-69f5-5ecd-abb3-a9a4be1794cf
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 1b08db56-da8a-584c-8f46-4246e60a6c55
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task d94c659f-059a-59b3-8783-0055ba072490
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task eadb3885-e6cf-5dad-b4c2-f6be4f8d57a6
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c4cb41a0-0937-54d9-b60d-4ff8f76a01c1
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4fe84368-897c-5e97-9df5-7ca5fa0c2ff2
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 42e2e4f4-2bc4-54bd-b7e4-05d33807003a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4fb4749c-6e81-51d0-8a95-42eb94d463dc
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 939c111d-c70d-5e5b-b557-48c9d01fc313
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 182a5be2-9d93-5ad7-8271-232598b06861
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task d6d69e5a-515f-56da-b11b-dbc3a7827036
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 1c4d6135-db67-599d-8fa9-fcd6bbccc2ee
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 8d6e0f74-8933-561f-ac71-bea28c489171
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 25082907-5d8e-51f0-8254-a76081e4e28e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 98f4612b-93f7-5ac2-bcb8-9ea79ff62949
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task fe70153b-a9a3-557a-bc47-cb95300f8397
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task e936be99-5945-5526-abf9-b5eada9805c3
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3d259a4b-b5de-5b51-b769-cfb7e0f7c567
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ea5f8583-bd63-5e34-adc1-dcec566cb545
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 80d1acc8-0752-5e92-92dd-5a9ff885a616
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c2bb2695-456c-5498-b960-8d6a15020a29
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 9d71d499-3078-5277-800e-fda54600b728
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7af59e85-e2aa-52c7-804b-dbf7470cf30b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f3f19cc0-60ad-5b16-a407-55de13d7a22e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 841f6e2c-c2a3-5c46-bd51-f80fc860f4f9
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 442537f7-9e50-5c0e-b4ec-d9995bb61ca1
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 8490c1a4-4bb4-50a6-b8da-f7fcf4b769ac
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 339c008a-7e1b-5a22-b68c-e1d54429633e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7d462aa8-f887-5dfe-9219-1abd631a5d35
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 994e31d6-b344-5be2-a99d-15cfb26549de
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 32650cde-8b56-5dc0-b8b1-a376cffbd54b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 2c9ad054-7e83-5a95-ae1f-9ab08a559e80
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 952bc273-1784-54dd-a8cf-bdac62957822
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 2385899d-3e6c-5e79-92f5-5d7dc16a483f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task fe9559b1-7471-5f21-806d-22ddfd486ea7
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 26f9a70e-6e4e-5aec-a2ff-6a9ec766902c
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4c77f19e-6044-5987-a7dc-b5960c7744b3
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 1ae9f0f8-534a-5856-af30-e68e1a6f2006
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 70c66a7e-d358-51b4-bf6b-f37ac680abba
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 47e788a8-5b79-5ff7-9360-ce80773c734b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 9f488af2-be3e-50c5-bb01-a6b1be3c229e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3a0c3b67-adcb-5b91-a0da-84f18ea608a5
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 36e8d503-3f31-54a4-bf3f-cee2d1e96760
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 62cc0ded-cd4d-5478-ba50-6d3b803bbf86
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3bb5a560-02cf-5aff-8e2e-734fe20caa45
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 91941c28-c9b5-56cc-b2ca-2fe0dbf3c1ac
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7dfa29fb-7dcd-5c7b-a55d-fe309a1d2f6d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task e5629a00-0aa9-5791-8e63-14ebc9e99423
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3da066d1-356a-5a1e-a783-9d25864793d2
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task a132354f-e6ce-5e72-83e6-8788c7864de9
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task d322eddf-e33e-52cd-9c53-310cd0f82d1e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f6ec84cd-d8b6-5585-935e-d3c4dbde32e1
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task cc2ce12d-78c3-511f-ba7e-1e019cb8d73b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 656c419c-2b3f-5bab-a339-0849760498f8
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 894a2bec-2276-54c3-8247-1e2ae4d72df4
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task bff937ed-a267-5324-b838-d55b796c2580
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 20da5d86-01a3-5de0-882e-4ac07dc87dba
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3e9a3d8e-fe4d-5c0d-be18-07ead5f7090c
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4e6860d9-7f75-5ed8-9fce-9b170f8de11b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 67215c26-2a64-5d11-8b0a-9277134ffd8b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task d2866b5f-f279-5cf4-ac0f-bd8c6de74fc0
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 58749ec7-429c-5cf4-8c4e-a4aaa48487a9
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 711ba5f5-35f3-5304-aca9-7692fabeeaaf
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 8a5ef0eb-49ee-57db-9340-002bbbdf9171
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task b7372808-7b30-5a87-b0a2-54e82c4d060c
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 055d3ee4-a668-5b6f-b4a2-e792df204e29
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 95bcc9bc-7c33-5fc6-8694-a1060473732b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 52c28d98-6d9b-5300-bcb0-0ecd91872543
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ea5f93f7-8c12-58c9-89ec-a4ef8bb40acd
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task b2ab6198-f1ac-59c9-9eff-4e2ad5580d66
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 80921566-e3d7-509b-998b-7e2c9cc81a56
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 722b12ed-6dfd-5f14-a7d0-ce59760afa2d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 39f41500-9ed3-5254-b2dd-c665c7bb2f4e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f69c8dc6-6575-56df-a9b7-c88ce44a0ec4
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4ad345aa-f203-5b31-a961-6f17f8e52eab
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3c09f575-988d-51ad-be8d-842a0d821cb0
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task d5a1fac1-6496-5634-956b-db0b95463a38
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 724a591a-ff6a-5fba-a8f1-ea69d53f9fa4
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task d9a3a75e-1b43-53dd-8c42-f55f3f468b17
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 87791ed4-62aa-52fe-808f-5d08d7c8ac6d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 726ddecb-1970-5694-87a4-a8afd2f1a8a9
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 1cd5b565-4a78-5122-8c6f-4cd23bd99eac
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task e5bb63db-5085-5ee1-8863-9746cfe3e4b6
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 1ff661ab-766c-5d31-9a5d-a675fc795f3f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 3d7e00ad-5e6e-54b3-b764-bf442f5269b7
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task b42c552f-0c54-572c-b431-448186201a6c
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 9553bfbf-261d-5731-9df0-889dfbc98f1e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 98910cdd-548a-5f3a-b518-88df2f0b01aa
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 94e6298e-3e16-5a0e-b7ee-207fafb029ed
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 8cb7e734-7357-5e10-a5d6-b367b342391e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c79377ee-09be-53d7-ad2e-e29e35b9a521
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 9e29f195-cc6e-512f-94f6-1133486ed50d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 05f53751-befe-52b3-aecf-afd3303dca3e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 67150036-6cb4-5c28-b3da-123a11a5f2b3
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ca935351-f03c-5e99-93c8-1bf2ff565406
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 5357efe4-0fa2-58a7-922a-12215e375cdb
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 02c4ced4-efde-5642-812f-3b5ce254cb4e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4991d249-3cdb-5ab9-bf72-ae465c89ab5f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4b9e29f7-482e-5e49-8013-f004cf000885
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f97629b7-7595-5ab0-8560-451f5b53a44b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task cc23206a-6fb4-57d3-856b-f789fe014cf6
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 59d13793-84b1-5716-b81e-aec3eeabc608
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 41dd5cb2-2a51-5798-917b-740b2b3c2f9e
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 430eca26-b3cb-59de-a28c-f7932c15090f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7116c46a-06d7-5c47-9fdf-8d96ac322efc
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4fe1c59a-5197-55f3-a5c3-75a107009341
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 2b4dfd8c-1946-55aa-b246-cc0278449a51
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 2dfc9fe1-7f44-56ad-ab54-8e50b4ce00f2
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task d79025fb-f279-5b37-a213-db9aa55b0ebf
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ce80ebf3-04a9-5f23-8ad8-5be57f428414
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 9989eddd-2649-52ea-ab82-e28bcbcf8081
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task b6184258-0e34-5631-9fb7-fedbd805dbcb
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7e8072a5-f7ed-54d1-8044-79592fe66218
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task f2dd66ad-5028-5f9d-a028-5b73d056900f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 7f66627c-d72d-5a3f-a822-f27f574bd581
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 74afcd51-99d0-538d-b8f5-91219bba8414
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task b6beaeb9-bed5-55d8-9114-1406faa013f3
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ecc15a1b-357c-5ac8-88e9-c518b5e7fa6b
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 8f27f58e-6c05-597d-a61d-abc208096aa3
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 4efb452d-588f-5bb5-ae06-3f5937a9d22f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task a16703ee-1176-502e-894a-3e442a1b7a5a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task b60b810c-cda2-5524-bc83-9be3df9f923c
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task be211aa9-8b40-534a-b561-82a66f9cff4a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 2dfd5abf-4edc-5345-96f4-cd7f7901c59d
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task ca90803b-7c4e-512c-aa3e-e32afbabd71f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 6a1b1671-2229-5526-976d-22f122052d51
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task c3b4c52b-f623-5a65-b6d3-465f91e3516f
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+Task 40fb062b-cba2-5ff6-b054-0a3c79210a7a
+  sync done, starting sampler
+  sampler started
+  generate done
+  reset done
+--------------------
+Testing time 6:48:06
+--------------------
+Done!
+================ DONE ================

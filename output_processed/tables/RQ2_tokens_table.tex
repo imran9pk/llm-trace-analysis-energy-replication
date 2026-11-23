@@ -1,0 +1,24 @@
+\begin{table}[t]
+\centering
+\caption{Mean input and output tokens per instance for each trace data format, with changes relative to JSON in percentages.}
+\label{tab:rq2_tokens}
+\begin{tabularx}{\columnwidth}{lXXX}
+\toprule
+Format & Qwen & Llama & Ministral \\
+\midrule
+\multicolumn{4}{l}{\textit{Input tokens}} \\
+JSON & 5,078 & 4,231 & 5,407 \\
+Markdown & 3,843 ($-24.3$\%) & 2,996 ($-29.2$\%) & 3,945 ($-27.0$\%) \\
+TRON & 3,544 ($-30.2$\%) & 2,697 ($-36.3$\%) & 3,712 ($-31.4$\%) \\
+TOON & 3,523 ($-30.6$\%) & 2,676 ($-36.8$\%) & 3,690 ($-31.8$\%) \\
+CSV & \textbf{3,451} ($-32.0$\%) & \textbf{2,605} ($-38.4$\%) & \textbf{3,592} ($-33.6$\%) \\
+\midrule
+\multicolumn{4}{l}{\textit{Output tokens}} \\
+JSON & 529 & 596 & 547 \\
+Markdown & \textbf{504} ($-4.7$\%) & \textbf{541} ($-9.1$\%) & \textbf{497} ($-9.0$\%) \\
+TRON & 559 ($+5.6$\%) & 610 ($+2.4$\%) & 560 ($+2.5$\%) \\
+TOON & 537 ($+1.5$\%) & 546 ($-8.4$\%) & 559 ($+2.3$\%) \\
+CSV & 545 ($+3.0$\%) & 582 ($-2.2$\%) & 576 ($+5.3$\%) \\
+\bottomrule
+\end{tabularx}
+\end{table}

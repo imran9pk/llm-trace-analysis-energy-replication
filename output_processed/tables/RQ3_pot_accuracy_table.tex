@@ -1,0 +1,20 @@
+\begin{table}[t]
+\centering
+\caption{Accuracy of direct prompting with JSON and of task-level program generation, with changes relative to direct prompting in percentage points computed from unrounded accuracies. Failed instances (errors and timeouts) count as incorrect.}
+\label{tab:rq3_pot_accuracy}
+\begin{tabularx}{\columnwidth}{lXXX}
+\toprule
+ & Qwen & Llama & Ministral \\
+\midrule
+Direct prompting & 0.659 & 0.511 & 0.511 \\
+\midrule
+\multicolumn{4}{l}{\textit{Program generation zero-shot}} \\
+\quad Accuracy & 0.508 ($-15.1$) & 0.298 ($-21.3$) & 0.310 ($-20.1$) \\
+\quad Failed instances & 18.5\% & 23.6\% & 23.7\% \\
+\midrule
+\multicolumn{4}{l}{\textit{Program generation two-shot}} \\
+\quad Accuracy & \textbf{0.741} ($+8.3$) & \textbf{0.548} ($+3.8$) & \textbf{0.571} ($+6.1$) \\
+\quad Failed instances & \textbf{2.5\%} & \textbf{9.5\%} & \textbf{7.9\%} \\
+\bottomrule
+\end{tabularx}
+\end{table}

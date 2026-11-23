@@ -1,0 +1,22 @@
+\begin{table}[t]
+\centering
+\caption{Energy (J) to analyze the 9,120 test instances with direct prompting and with task-level program generation. For program generation, the total is the GPU energy of the 38 generation calls plus the CPU energy of executing the programs.}
+\label{tab:rq4_pot_energy}
+\begin{tabularx}{\columnwidth}{lXXX}
+\toprule
+ & Qwen & Llama & Ministral \\
+\midrule
+Direct prompting & 12,951,005 & 13,415,823 & 13,659,263 \\
+\midrule
+\multicolumn{4}{l}{\textit{Program generation zero-shot}} \\
+\quad Generation (GPU) & 9,927 & 9,706 & 8,825 \\
+\quad Execution (CPU) & 1.03 & 2.06 & 0.71 \\
+\quad Total & \textbf{9,928} & \textbf{9,708} & \textbf{8,825} \\
+\midrule
+\multicolumn{4}{l}{\textit{Program generation two-shot}} \\
+\quad Generation (GPU) & 20,836 & 17,991 & 19,674 \\
+\quad Execution (CPU) & 0.97 & 2.34 & 2.99 \\
+\quad Total & 20,837 & 17,993 & 19,677 \\
+\bottomrule
+\end{tabularx}
+\end{table}

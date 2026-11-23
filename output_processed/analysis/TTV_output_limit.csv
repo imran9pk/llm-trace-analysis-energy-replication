@@ -1,0 +1,16 @@
+model,format,instances,reached_limit,reached_limit_no_answer,share_no_answer_pct
+Qwen3-8B,JSON,9120,275,275,3.02
+Qwen3-8B,MARKDOWN,9120,228,228,2.5
+Qwen3-8B,TRON,9120,313,312,3.42
+Qwen3-8B,TOON,9120,254,254,2.79
+Qwen3-8B,CSV,9120,257,257,2.82
+Llama-3.1-8B-Instruct,JSON,9120,774,771,8.45
+Llama-3.1-8B-Instruct,MARKDOWN,9120,600,599,6.57
+Llama-3.1-8B-Instruct,TRON,9120,774,773,8.48
+Llama-3.1-8B-Instruct,TOON,9120,573,570,6.25
+Llama-3.1-8B-Instruct,CSV,9120,638,636,6.97
+Ministral-8B-Instruct-2410,JSON,9120,389,389,4.27
+Ministral-8B-Instruct-2410,MARKDOWN,9120,393,392,4.3
+Ministral-8B-Instruct-2410,TRON,9120,479,479,5.25
+Ministral-8B-Instruct-2410,TOON,9120,511,511,5.6
+Ministral-8B-Instruct-2410,CSV,9120,580,579,6.35

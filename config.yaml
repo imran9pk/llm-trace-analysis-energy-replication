@@ -1,0 +1,48 @@
+# output path
+output_path: ./output
+
+# dataset paths
+# normal_dataset: ./dataset/raw_dataset/sampled_traces/normal_traces.json   # only needed to rebuild TraceBench (construction code not shipped)
+# abnormal_dataset: ./dataset/raw_dataset/sampled_traces/abnormal_traces.json
+
+# Dataset Construction
+## TraceBench path
+trace_bench_dataset: ./dataset/TraceBench
+## dataset aug ratio
+aug_ratio: 0.3
+## dataset split ratio
+split_ratio: 0.7
+## processes num
+processes_num: 8
+## specification name
+specification: OpenTelemetry
+## trace description method
+desc_method: raw_spans_desc
+## template name
+instruction_template_name: instruction_template_without_input_traces    # instruction_template, instruction_template_with_input_traces, instruction_template_without_input_traces
+response_template_name: response_with_step_template #response_without_step_template #response_with_step_template #response_without_step_template # response_with_step_template, response_without_step_template
+codeprompt_template_name: codeprompt_template
+
+# Inference run settings
+max_new_tokens: 2000
+do_sample: False
+device: cuda:0
+cooldown_between_tasks_s: 2.0 
+measure_energy: True
+batching_enabled: False
+batch_size: 1000
+input_data_format: TRON # JSON, TOON , CSV, MARKDOWN , TRON
+job_parts: 8 # number of parts for input dataset read by sh scripts
+
+llm_name: Qwen3-8B
+llm_path: /path/to/models/Qwen3-8B
+job_model_name: qwn
+
+# llm_name: Llama-3.1-8B-Instruct
+# llm_path: /path/to/models/Llama-3.1-8B-Instruct
+# job_model_name: lama
+
+# llm_name: Ministral-8B-Instruct-2410
+# llm_path: /path/to/models/Ministral-8B-Instruct-2410
+# job_model_name: mst
+

@@ -1,0 +1,10 @@
+model,strategy,tasks,tasks_acc_ge_95,tasks_acc_le_5,tasks_pot_above_direct
+Qwen3-8B,direct_json,38,6,1,
+Qwen3-8B,pot_zeroshot,38,9,10,15.0
+Qwen3-8B,pot_fewshot,38,18,4,24.0
+Llama-3.1-8B-Instruct,direct_json,38,1,1,
+Llama-3.1-8B-Instruct,pot_zeroshot,38,5,19,14.0
+Llama-3.1-8B-Instruct,pot_fewshot,38,9,7,22.0
+Ministral-8B-Instruct-2410,direct_json,38,1,1,
+Ministral-8B-Instruct-2410,pot_zeroshot,38,5,19,14.0
+Ministral-8B-Instruct-2410,pot_fewshot,38,10,6,25.0

@@ -1,0 +1,22 @@
+"""
+Auto-generated task-level solver.
+
+Task ID: Task_3_13
+Task Type: 6_Ranking
+Task Description: Identify which service instance is called most frequently in a given trace.
+Question Template: Which service instance is called most frequently in the Input Trace?
+"""
+
+def solution(trace1):
+    from collections import defaultdict
+
+    service_instance_counts = defaultdict(int)
+    for span in trace1:
+        service_name = span['service.name']
+        host_name = span['host.name']
+        service_instance = f"{service_name}-{host_name}"
+        service_instance_counts[service_instance] += 1
+
+    max_count = max(service_instance_counts.values()) if service_instance_counts else 0
+    most_frequent = [service for service, count in service_instance_counts.items() if count == max_count]
+    return most_frequent

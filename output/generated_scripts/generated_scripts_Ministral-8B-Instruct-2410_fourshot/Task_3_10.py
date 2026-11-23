@@ -1,0 +1,39 @@
+"""
+Auto-generated task-level solver.
+
+Task ID: Task_3_10
+Task Type: 5_Existence
+Task Description: Determine whether a cyclic call issue exists in a given trace.
+Question Template: Is there a cyclic call issue in the Input Trace?
+"""
+
+def solution(trace1):
+    from collections import defaultdict
+
+    def build_graph(spans):
+        graph = defaultdict(list)
+        for span in spans:
+            if span['parentSpanId'] != '-1':
+                graph[span['parentSpanId']].append(span['spanId'])
+        return graph
+
+    def has_cycle(graph, visited, rec_stack):
+        for node in graph:
+            if node not in visited:
+                visited.add(node)
+                rec_stack.add(node)
+                if node in graph:
+                    for neighbor in graph[node]:
+                        if neighbor not in visited:
+                            if has_cycle(graph, visited, rec_stack):
+                                return True
+                        elif neighbor in rec_stack:
+                            return True
+                rec_stack.remove(node)
+        return False
+
+    graph = build_graph(trace1)
+    visited = set()
+    rec_stack = set()
+
+    return 'Yes' if has_cycle(graph, visited, rec_stack) else 'No'

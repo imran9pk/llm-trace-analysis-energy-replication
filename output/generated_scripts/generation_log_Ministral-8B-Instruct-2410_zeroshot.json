@@ -1,0 +1,344 @@
+{
+    "Task_1_1": {
+        "task_type": "1_Entity",
+        "question_template": "Which services are called by the service '{key_component}' in the Input Trace?",
+        "token_count": 462,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_zeroshot/Task_1_1.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, key_component):\n    callee_services = []\n    for span in trace1:\n        if span['service.name'] == key_component:\n            for parent_span in trace1:\n                if parent_span['spanId'] == span['parentSpanId']:\n                    callee_services.append(parent_span['service.name'])\n    return list(set(callee_services))\n```",
+        "prompt": "\n## Task\nTask Description: Identify which services are called by a given service.\nTask Definition: Given a trace and a specific service, you need to output the list of services which called by this service (i.e., the callee services). The list may be empty.\nQuestion Template: Which services are called by the service '{key_component}' in the Input Trace?\n\n## Trace Format\nEach trace is represented as a list of spans. All attributes of each span follow the OpenTelemetry specification, including 'spanId', 'parentSpanId', 'name', 'kind', 'durationTimeUnixNano', 'service.name', 'host.name', etc., where 'durationTimeUnixNano' is the difference between 'endTimeUnixNano' and 'startTimeUnixNano'. Based on the 'spanId' and 'parentSpanId', each span list can be reconstructed as a tree structure of spans, where the edges represent the caller-callee relationships between a span and its parent span. The span with 'parentSpanId' of -1 is the root span.\n\n\n\n## Function Specification\nWrite a general-purpose Python function with this exact signature:\n\n```python\ndef solution(trace1, key_component):\n    # function body\n    return answer\n```\n\n- `trace1` is one input trace.\n- `key_component` is extracted from the concrete question at runtime.\n\n\n## Requirements\n- Do not hardcode span IDs, service names, host names, trace IDs, routes, timestamps, or example-specific values.\n- Return only the exact answer value: a number, string, list, or empty list [].\n- Do not return span dictionaries, trace labels, or any surrounding structure unless explicitly asked.\n- Time-related fields such as `startTimeUnixNano`, `endTimeUnixNano`, and `durationTimeUnixNano` are strings and must be converted to integers before arithmetic.\n- Do not include explanations, reasoning, or any text outside the ```python ... ``` code block in your response.\n\n"
+    },
+    "Task_1_2": {
+        "task_type": "1_Entity",
+        "question_template": "Which service instances are called by the service instance '{key_component}' in the Input Trace?",
+        "token_count": 470,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_zeroshot/Task_1_2.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, key_component):\n    def get_callees(spans, key_component):\n        callee_spans = []\n        for span in spans:\n            if span['parentSpanId'] == -1:\n                continue\n            if span['service.name'] == key_component:\n                callee_spans.append(span['service.name'])\n        return callee_spans\n\n    def find_span_by_id(spans, span_id):\n        for span in spans:\n            if span['spanId'] == span_id:\n                return span\n        return None\n\n    def build_span_tree(spans):\n        span_tree = {}\n        for span in spans:\n            span_id = span['spanId']\n            parent_id = span['parentSpanId']\n            if parent_id == -1:\n                span_tree[span_id] = []\n            else:\n                if parent_id not in span_tree:\n                    span_tree[parent_id] = []\n                span_tree[parent_id].append(span_id)\n        return span_tree\n\n    span_tree = build_span_tree(trace1)\n    callee_spans = get_callees(trace1, key_component)\n    return callee_spans\n```",
+        "prompt": null
+    },
+    "Task_1_3": {
+        "task_type": "1_Entity",
+        "question_template": "Which services call the service '{key_component}' in the Input Trace?",
+        "token_count": 456,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_zeroshot/Task_1_3.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, key_component):\n    callers = []\n    for span in trace1:\n        if span['service.name'] == key_component:\n            parent_span = next((s for s in trace1 if s['spanId'] == span['parentSpanId']), None)\n            if parent_span:\n                callers.append(parent_span['service.name'])\n    return list(set(callers))\n```",
+        "prompt": null
+    },
+    "Task_1_4": {
+        "task_type": "1_Entity",
+        "question_template": "Which service instances call the service instance '{key_component}' in the Input Trace?",
+        "token_count": 464,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_zeroshot/Task_1_4.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, key_component):\n    callers = []\n    for span in trace1:\n        if span['service.name'] == key_component:\n            parent_span = next((s for s in trace1 if s['spanId'] == span['parentSpanId']), None)\n            if parent_span:\n                callers.append(parent_span['service.name'])\n    return callers\n```",
+        "prompt": null
+    },
+    "Task_1_5": {
+        "task_type": "1_Counting",
+        "question_template": "How many child spans does span '{key_component}' have in the Input Trace?",
+        "token_count": 452,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_zeroshot/Task_1_5.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, key_component):\n    def get_span_id(span):\n        return span['spanId']\n\n    def get_parent_span_id(span):\n        return span['parentSpanId']\n\n    def find_span_by_id(trace, span_id):\n        for span in trace:\n            if get_span_id(span) == span_id:\n                return span\n        return None\n\n    def count_child_spans(trace, parent_span_id):\n        count = 0\n        for span in trace:\n            if get_parent_span_id(span) == parent_span_id:\n                count += 1\n                count += count_child_spans(trace, get_span_id(span))\n        return count\n\n    parent_span = find_span_by_id(trace1, key_component)\n    if parent_span is None:\n        return 0\n\n    return count_child_spans(trace1, get_span_id(parent_span))\n```",
+        "prompt": null
+    },
+    "Task_1_6": {
+        "task_type": "2_Ranking",
+        "question_template": "Which child span of span '{key_component}' has the longest response time in the Input Trace?",
+        "token_count": 479,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_zeroshot/Task_1_6.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, key_component):\n    def get_span_by_id(spans, span_id):\n        for span in spans:\n            if span['spanId'] == span_id:\n                return span\n        return None\n\n    def find_longest_child_span(spans, parent_span_id):\n        longest_child_span = None\n        longest_duration = 0\n\n        for span in spans:\n            if span['parentSpanId'] == parent_span_id:\n                duration = int(span['durationTimeUnixNano'])\n                if duration > longest_duration:\n                    longest_duration = duration\n                    longest_child_span = span\n\n        return longest_child_span\n\n    key_span = get_span_by_id(trace1, key_component)\n    if not key_span:\n        return []\n\n    longest_child_span = find_longest_child_span(trace1, key_span['spanId'])\n    if not longest_child_span:\n        return []\n\n    return longest_child_span['spanId']\n```",
+        "prompt": null
+    },
+    "Task_1_7": {
+        "task_type": "2_Computation",
+        "question_template": "What is the response time of span '{key_component}' in the Input Trace?",
+        "token_count": 462,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_zeroshot/Task_1_7.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, key_component):\n    for span in trace1:\n        if span['name'] == key_component:\n            start_time = int(span['startTimeUnixNano'])\n            end_time = int(span['endTimeUnixNano'])\n            return end_time - start_time\n    return 0\n```",
+        "prompt": null
+    },
+    "Task_1_8": {
+        "task_type": "2_Computation",
+        "question_template": "What is the waiting time of span '{key_component}' in the Input Trace?",
+        "token_count": 497,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_zeroshot/Task_1_8.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, key_component):\n    def get_span_by_id(spans, span_id):\n        for span in spans:\n            if span['spanId'] == span_id:\n                return span\n        return None\n\n    def calculate_waiting_time(spans, span_id):\n        span = get_span_by_id(spans, span_id)\n        if span['kind'] == 'PRODUCER':\n            return 0\n        waiting_time = 0\n        for child_span in spans:\n            if child_span['parentSpanId'] == span_id:\n                waiting_time += int(child_span['durationTimeUnixNano'])\n        return waiting_time\n\n    root_span = next(span for span in trace1 if span['parentSpanId'] == -1)\n    return calculate_waiting_time(trace1, root_span['spanId'])\n```",
+        "prompt": null
+    },
+    "Task_1_9": {
+        "task_type": "2_Computation",
+        "question_template": "What is the local execution time of span '{key_component}' in the Input Trace?",
+        "token_count": 503,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_zeroshot/Task_1_9.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, key_component):\n    def parse_time(time_str):\n        return int(time_str)\n\n    def find_span(span_list, key_component):\n        for span in span_list:\n            if span['name'] == key_component:\n                return span\n            if 'children' in span:\n                child_span = find_span(span['children'], key_component)\n                if child_span:\n                    return child_span\n        return None\n\n    def calculate_local_execution_time(span):\n        if span['kind'] == 'PRODUCER':\n            return parse_time(span['durationTimeUnixNano'])\n        else:\n            total_child_duration = sum(parse_time(child['durationTimeUnixNano']) for child in span.get('children', []))\n            return parse_time(span['durationTimeUnixNano']) - total_child_duration\n\n    span = find_span(trace1, key_component)\n    if span:\n        return calculate_local_execution_time(span)\n    return 0\n```",
+        "prompt": null
+    },
+    "Task_2_1": {
+        "task_type": "3_Existence",
+        "question_template": "Is there an HTTP call from service '{key_component_1}' to service '{key_component_2}' in the Input Trace?",
+        "token_count": 499,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_zeroshot/Task_2_1.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, key_component_1, key_component_2):\n    for span in trace1:\n        if span['service.name'] == key_component_1:\n            for parent_span in trace1:\n                if parent_span['spanId'] == span['parentSpanId'] and parent_span['service.name'] == key_component_2:\n                    return 'Yes'\n    return 'No'\n```",
+        "prompt": null
+    },
+    "Task_2_2": {
+        "task_type": "3_Existence",
+        "question_template": "Is there an HTTP call from service instance '{key_component_1}' to service instance '{key_component_2}' in the Input Trace?",
+        "token_count": 505,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_zeroshot/Task_2_2.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, key_component_1, key_component_2):\n    for span in trace1:\n        if span['service.name'] == key_component_1:\n            for parent_span in trace1:\n                if parent_span['spanId'] == span['parentSpanId'] and parent_span['service.name'] == key_component_2:\n                    return 'Yes'\n    return 'No'\n```",
+        "prompt": null
+    },
+    "Task_2_3": {
+        "task_type": "3_Existence",
+        "question_template": "Is there an HTTP call path from service '{key_component_1}' to service '{key_component_2}' in the Input Trace?",
+        "token_count": 506,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_zeroshot/Task_2_3.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, key_component_1, key_component_2):\n    def find_path(spans, src, dest):\n        if not spans:\n            return False\n        for span in spans:\n            if span['service.name'] == src:\n                if span['service.name'] == dest:\n                    return True\n                for child in spans:\n                    if child['parentSpanId'] == span['spanId']:\n                        if find_path([child], src, dest):\n                            return True\n        return False\n\n    return 'Yes' if find_path(trace1, key_component_1, key_component_2) else 'No'\n```",
+        "prompt": null
+    },
+    "Task_2_4": {
+        "task_type": "3_Existence",
+        "question_template": "Is there an HTTP call path from service instance '{key_component_1}' to service instance '{key_component_2}' in the Input Trace?",
+        "token_count": 514,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_zeroshot/Task_2_4.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, key_component_1, key_component_2):\n    def find_path(spans, src, dest):\n        if not spans:\n            return False\n        for span in spans:\n            if span['service.name'] == src:\n                if span['service.name'] == dest:\n                    return True\n                for child in spans:\n                    if child['parentSpanId'] == span['spanId']:\n                        if find_path([child], src, dest):\n                            return True\n        return False\n\n    return 'Yes' if find_path(trace1, key_component_1, key_component_2) else 'No'\n```",
+        "prompt": null
+    },
+    "Task_2_5": {
+        "task_type": "4_Comparison",
+        "question_template": "Which span, span '{key_component_1}' or span '{key_component_2}', has a longer response time in the Input Trace?",
+        "token_count": 504,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_zeroshot/Task_2_5.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, key_component_1, key_component_2):\n    def get_span_by_name(trace, name):\n        for span in trace:\n            if span['name'] == name:\n                return span\n        return None\n\n    span1 = get_span_by_name(trace1, key_component_1)\n    span2 = get_span_by_name(trace1, key_component_2)\n\n    if span1 is None or span2 is None:\n        return 'Same'\n\n    duration1 = int(span1['durationTimeUnixNano'])\n    duration2 = int(span2['durationTimeUnixNano'])\n\n    if duration1 > duration2:\n        return key_component_1\n    elif duration2 > duration1:\n        return key_component_2\n    else:\n        return 'Same'\n```",
+        "prompt": null
+    },
+    "Task_2_6": {
+        "task_type": "4_Comparison",
+        "question_template": "Which span, span '{key_component_1}' or span '{key_component_2}', has a longer waiting time in the Input Trace?",
+        "token_count": 539,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_zeroshot/Task_2_6.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, key_component_1, key_component_2):\n    def calculate_waiting_time(span):\n        if span['kind'] == 'PRODUCER':\n            return 0\n        return sum(child['durationTimeUnixNano'] for child in trace1 if child['parentSpanId'] == span['spanId'])\n\n    def find_span_by_name(trace, name):\n        for span in trace:\n            if span['name'] == name:\n                return span\n        return None\n\n    span1 = find_span_by_name(trace1, key_component_1)\n    span2 = find_span_by_name(trace1, key_component_2)\n\n    if span1 is None or span2 is None:\n        return 'Invalid span names'\n\n    waiting_time1 = calculate_waiting_time(span1)\n    waiting_time2 = calculate_waiting_time(span2)\n\n    if waiting_time1 > waiting_time2:\n        return key_component_1\n    elif waiting_time2 > waiting_time1:\n        return key_component_2\n    else:\n        return 'Same'\n```",
+        "prompt": null
+    },
+    "Task_2_7": {
+        "task_type": "4_Comparison",
+        "question_template": "Which span, span '{key_component_1}' or span '{key_component_2}', has a longer local execution time in the Input Trace?",
+        "token_count": 546,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_zeroshot/Task_2_7.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, key_component_1, key_component_2):\n    def get_local_execution_time(span):\n        if span['kind'] == 'PRODUCER':\n            return int(span['durationTimeUnixNano'])\n        else:\n            return int(span['durationTimeUnixNano']) - sum(\n                int(child['durationTimeUnixNano']) for child in trace1 if child['parentSpanId'] == span['spanId']\n            )\n\n    def find_span_by_name(trace, name):\n        for span in trace:\n            if span['name'] == name:\n                return span\n        return None\n\n    span1 = find_span_by_name(trace1, key_component_1)\n    span2 = find_span_by_name(trace1, key_component_2)\n\n    if span1 is None or span2 is None:\n        return 'Invalid span names'\n\n    local_time1 = get_local_execution_time(span1)\n    local_time2 = get_local_execution_time(span2)\n\n    if local_time1 > local_time2:\n        return key_component_1\n    elif local_time2 > local_time1:\n        return key_component_2\n    else:\n        return 'Same'\n```",
+        "prompt": null
+    },
+    "Task_3_9": {
+        "task_type": "5_Computation",
+        "question_template": "What is the depth of the Input Trace?",
+        "token_count": 430,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_zeroshot/Task_3_9.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1):\n    from collections import defaultdict\n\n    def parse_time(time_str):\n        return int(time_str)\n\n    def build_tree(spans):\n        tree = defaultdict(list)\n        for span in spans:\n            parent_id = span['parentSpanId']\n            if parent_id == -1:\n                root = span\n            else:\n                tree[parent_id].append(span)\n        return tree, root\n\n    def calculate_depth(tree, node, depth=0):\n        if not node:\n            return 0\n        max_depth = 0\n        for child in tree[node]:\n            max_depth = max(max_depth, calculate_depth(tree, child, depth + 1))\n        return max_depth + 1\n\n    spans = trace1\n    tree, root = build_tree(spans)\n    return calculate_depth(tree, root)\n```",
+        "prompt": null
+    },
+    "Task_3_10": {
+        "task_type": "5_Existence",
+        "question_template": "Is there a cyclic call issue in the Input Trace?",
+        "token_count": 454,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_zeroshot/Task_3_10.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1):\n    def build_graph(spans):\n        graph = {}\n        for span in spans:\n            span_id = span['spanId']\n            parent_id = span['parentSpanId']\n            if parent_id == -1:\n                graph[span_id] = []\n            else:\n                if parent_id not in graph:\n                    graph[parent_id] = []\n                graph[parent_id].append(span_id)\n        return graph\n\n    def has_cycle(graph, visited, rec_stack):\n        for node in graph:\n            if node not in visited:\n                if has_cycle_util(graph, node, visited, rec_stack):\n                    return True\n        return False\n\n    def has_cycle_util(graph, node, visited, rec_stack):\n        visited.add(node)\n        rec_stack.add(node)\n        for neighbor in graph.get(node, []):\n            if neighbor not in visited:\n                if has_cycle_util(graph, neighbor, visited, rec_stack):\n                    return True\n            elif neighbor in rec_stack:\n                return True\n        rec_stack.remove(node)\n        return False\n\n    graph = build_graph(trace1)\n    visited = set()\n    rec_stack = set()\n    return 'Yes' if has_cycle(graph, visited, rec_stack) else 'No'\n```",
+        "prompt": null
+    },
+    "Task_3_11": {
+        "task_type": "6_Computation",
+        "question_template": "What is the end-to-end response time of the Input Trace?",
+        "token_count": 445,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_zeroshot/Task_3_11.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1):\n    root_span = next(span for span in trace1 if span['parentSpanId'] == -1)\n    return int(root_span['durationTimeUnixNano'])\n```",
+        "prompt": null
+    },
+    "Task_3_12": {
+        "task_type": "6_Ranking",
+        "question_template": "Which service is called most frequently in the Input Trace?",
+        "token_count": 441,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_zeroshot/Task_3_12.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1):\n    from collections import defaultdict\n\n    service_count = defaultdict(int)\n\n    for span in trace1:\n        service_name = span['service.name']\n        service_count[service_name] += 1\n\n    max_count = max(service_count.values())\n    most_frequent_services = [service for service, count in service_count.items() if count == max_count]\n\n    return most_frequent_services\n```",
+        "prompt": null
+    },
+    "Task_3_13": {
+        "task_type": "6_Ranking",
+        "question_template": "Which service instance is called most frequently in the Input Trace?",
+        "token_count": 445,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_zeroshot/Task_3_13.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1):\n    from collections import defaultdict\n\n    service_count = defaultdict(int)\n\n    for span in trace1:\n        service_name = span['service.name']\n        service_count[service_name] += 1\n\n    max_count = max(service_count.values())\n    most_frequent_services = [service for service, count in service_count.items() if count == max_count]\n\n    return most_frequent_services\n```",
+        "prompt": null
+    },
+    "Task_3_14": {
+        "task_type": "6_Ranking",
+        "question_template": "Which operation is executed most frequently in the Input Trace?",
+        "token_count": 451,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_zeroshot/Task_3_14.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1):\n    from collections import Counter\n\n    # Convert durationTimeUnixNano to integers\n    for span in trace1:\n        span['durationTimeUnixNano'] = int(span['durationTimeUnixNano'])\n\n    # Count the occurrences of each operation name\n    operation_counts = Counter(span['name'] for span in trace1)\n\n    # Find the maximum count\n    max_count = max(operation_counts.values())\n\n    # Get all operations with the maximum count\n    most_frequent_operations = [name for name, count in operation_counts.items() if count == max_count]\n\n    return most_frequent_operations\n```",
+        "prompt": null
+    },
+    "Task_3_16": {
+        "task_type": "6_Ranking",
+        "question_template": "Which type of SQL statement is executed most frequently in the Input Trace?",
+        "token_count": 467,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_zeroshot/Task_3_16.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1):\n    from collections import Counter\n\n    sql_statements = ['INSERT', 'DELETE', 'UPDATE', 'SELECT']\n    sql_counts = Counter()\n\n    for span in trace1:\n        if span['name'] in sql_statements:\n            sql_counts[span['name']] += 1\n\n    max_count = max(sql_counts.values())\n    most_frequent_sqls = [sql for sql, count in sql_counts.items() if count == max_count]\n\n    return most_frequent_sqls\n```",
+        "prompt": null
+    },
+    "Task_3_17": {
+        "task_type": "6_Ranking",
+        "question_template": "Which table is accessed most frequently in the Input Trace?",
+        "token_count": 441,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_zeroshot/Task_3_17.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1):\n    from collections import defaultdict\n\n    table_access_count = defaultdict(int)\n\n    for span in trace1:\n        if 'service.name' in span and 'name' in span:\n            table_name = span['service.name']\n            table_access_count[table_name] += 1\n\n    max_access_count = max(table_access_count.values())\n    most_frequent_tables = [table for table, count in table_access_count.items() if count == max_access_count]\n\n    return most_frequent_tables\n```",
+        "prompt": null
+    },
+    "Task_3_18": {
+        "task_type": "6_Ranking",
+        "question_template": "Which database is accessed most frequently in the Input Trace?",
+        "token_count": 441,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_zeroshot/Task_3_18.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1):\n    from collections import defaultdict\n\n    # Parse the trace to count the occurrences of each database\n    db_count = defaultdict(int)\n\n    for span in trace1:\n        if 'service.name' in span and 'host.name' in span:\n            db = f\"{span['service.name']}.{span['host.name']}\"\n            db_count[db] += 1\n\n    # Find the maximum count\n    max_count = max(db_count.values())\n\n    # Collect all databases with the maximum count\n    most_frequent_dbs = [db for db, count in db_count.items() if count == max_count]\n\n    return most_frequent_dbs\n```",
+        "prompt": null
+    },
+    "Task_3_19": {
+        "task_type": "6_Ranking",
+        "question_template": "Which database operation has the longest execution time in the Input Trace?",
+        "token_count": 483,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_zeroshot/Task_3_19.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1):\n    max_duration = 0\n    longest_operations = []\n\n    for span in trace1:\n        if 'db' in span and 'operation' in span:\n            duration = int(span['durationTimeUnixNano'])\n            if duration > max_duration:\n                max_duration = duration\n                longest_operations = [span['db.operation']]\n            elif duration == max_duration:\n                longest_operations.append(span['db.operation'])\n\n    return longest_operations\n```",
+        "prompt": null
+    },
+    "Task_3_20": {
+        "task_type": "6_Entity",
+        "question_template": "Which operations have abnormal response codes in the Input Trace?",
+        "token_count": 433,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_zeroshot/Task_3_20.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1):\n    abnormal_codes = [span['responseCode'] for span in trace1 if span['responseCode'] != '200']\n    return abnormal_codes\n```",
+        "prompt": null
+    },
+    "Task_3_21": {
+        "task_type": "6_Entity",
+        "question_template": "Which spans have abnormal response codes in the Input Trace?",
+        "token_count": 423,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_zeroshot/Task_3_21.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1):\n    abnormal_codes = [span for span in trace1 if span['status']['code'] != 200]\n    return abnormal_codes\n```",
+        "prompt": null
+    },
+    "Task_4_1": {
+        "task_type": "7_Comparison",
+        "question_template": "Are the response codes of the Input Trace '{key_component_1}' and the Input Trace '{key_component_2}' the same?",
+        "token_count": 460,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_zeroshot/Task_4_1.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, trace2):\n    return 'Yes' if trace1 == trace2 else 'No'\n```",
+        "prompt": null
+    },
+    "Task_4_2": {
+        "task_type": "7_Comparison",
+        "question_template": "Are the root URLs of the Input Trace '{key_component_1}' and the Input Trace '{key_component_2}' the same?",
+        "token_count": 481,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_zeroshot/Task_4_2.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, trace2):\n    def get_root_url(trace):\n        for span in trace:\n            if span['parentSpanId'] == -1:\n                return span['http.route']\n        return None\n\n    root_url1 = get_root_url(trace1)\n    root_url2 = get_root_url(trace2)\n\n    return 'Yes' if root_url1 == root_url2 else 'No'\n```",
+        "prompt": null
+    },
+    "Task_4_3": {
+        "task_type": "8_Comparison",
+        "question_template": "Which trace, the Input Trace '{key_component_1}' or the Input Trace '{key_component_2}', has a greater number of spans?",
+        "token_count": 466,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_zeroshot/Task_4_3.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, trace2):\n    return 'Same' if len(trace1) == len(trace2) else 'Input Trace ' + ('1' if len(trace1) > len(trace2) else '2')\n```",
+        "prompt": null
+    },
+    "Task_4_4": {
+        "task_type": "8_Comparison",
+        "question_template": "Which trace, the Input Trace '{key_component_1}' or the Input Trace '{key_component_2}', has a greater depth?",
+        "token_count": 473,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_zeroshot/Task_4_4.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, trace2):\n    def get_span_tree(trace):\n        from collections import defaultdict\n\n        tree = defaultdict(list)\n        for span in trace:\n            span_id = span['spanId']\n            parent_span_id = span['parentSpanId']\n            if parent_span_id == -1:\n                root = span_id\n            else:\n                tree[parent_span_id].append(span_id)\n        return tree, root\n\n    def get_max_depth(tree, root):\n        def dfs(span_id, depth):\n            if span_id not in tree:\n                return depth\n            max_depth = depth\n            for child in tree[span_id]:\n                max_depth = max(max_depth, dfs(child, depth + 1))\n            return max_depth\n\n        return dfs(root, 0)\n\n    tree1, root1 = get_span_tree(trace1)\n    tree2, root2 = get_span_tree(trace2)\n\n    depth1 = get_max_depth(tree1, root1)\n    depth2 = get_max_depth(tree2, root2)\n\n    if depth1 > depth2:\n        return 'Input Trace 1'\n    elif depth2 > depth1:\n        return 'Input Trace 2'\n    else:\n        return 'Same'\n```",
+        "prompt": null
+    },
+    "Task_4_5": {
+        "task_type": "7_Comparison",
+        "question_template": "Which trace, the Input Trace '{key_component_1}' or the Input Trace '{key_component_2}', has a longer end-to-end response time?",
+        "token_count": 492,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_zeroshot/Task_4_5.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, trace2):\n    def get_root_span_duration(trace):\n        root_span = next(span for span in trace if span['parentSpanId'] == -1)\n        return int(root_span['durationTimeUnixNano'])\n\n    duration1 = get_root_span_duration(trace1)\n    duration2 = get_root_span_duration(trace2)\n\n    if duration1 > duration2:\n        return 'Input Trace 1'\n    elif duration2 > duration1:\n        return 'Input Trace 2'\n    else:\n        return 'Same'\n```",
+        "prompt": null
+    },
+    "Task_4_6": {
+        "task_type": "8_Comparison",
+        "question_template": "Are the sets of services involved in the Input Trace '{key_component_1}' and the Input Trace '{key_component_2}' the same?",
+        "token_count": 461,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_zeroshot/Task_4_6.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, trace2):\n    def get_service_names(trace):\n        return {span['service.name'] for span in trace}\n\n    return 'Yes' if get_service_names(trace1) == get_service_names(trace2) else 'No'\n```",
+        "prompt": null
+    },
+    "Task_4_7": {
+        "task_type": "8_Comparison",
+        "question_template": "Are the sets of service instances involved in the Input Trace '{key_component_1}' and the Input Trace '{key_component_2}' the same?",
+        "token_count": 464,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_zeroshot/Task_4_7.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, trace2):\n    def extract_service_instances(trace):\n        service_instances = set()\n        for span in trace:\n            service_instances.add(span['service.name'])\n        return service_instances\n\n    service_instances_1 = extract_service_instances(trace1)\n    service_instances_2 = extract_service_instances(trace2)\n\n    return 'Yes' if service_instances_1 == service_instances_2 else 'No'\n```",
+        "prompt": null
+    },
+    "Task_4_8": {
+        "task_type": "8_Comparison",
+        "question_template": "Are the sets of operations involved in the Input Trace '{key_component_1}' and the Input Trace '{key_component_2}' the same?",
+        "token_count": 461,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_zeroshot/Task_4_8.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, trace2):\n    def extract_operations(trace):\n        operations = set()\n        for span in trace:\n            operations.add((span['spanId'], span['name']))\n        return operations\n\n    return 'Yes' if extract_operations(trace1) == extract_operations(trace2) else 'No'\n```",
+        "prompt": null
+    },
+    "Task_4_9": {
+        "task_type": "8_Comparison",
+        "question_template": "Are the sets of service call pairs involved in the Input Trace '{key_component_1}' and the Input Trace '{key_component_2}' the same?",
+        "token_count": 467,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_zeroshot/Task_4_9.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, trace2):\n    def get_service_call_pairs(trace):\n        pairs = set()\n        for span in trace:\n            if span['parentSpanId'] != -1:\n                parent = next(s for s in trace if s['spanId'] == span['parentSpanId'])\n                pairs.add((parent['service.name'], span['service.name']))\n        return pairs\n\n    return 'Yes' if get_service_call_pairs(trace1) == get_service_call_pairs(trace2) else 'No'\n```",
+        "prompt": null
+    },
+    "Task_4_10": {
+        "task_type": "8_Comparison",
+        "question_template": "Are the sets of service instance call pairs involved in the Input Trace '{key_component_1}' and the Input Trace '{key_component_2}' the same?",
+        "token_count": 470,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_zeroshot/Task_4_10.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, trace2):\n    def get_span_pairs(trace):\n        span_pairs = set()\n        for span in trace:\n            span_pairs.add((span['spanId'], span['parentSpanId']))\n        return span_pairs\n\n    return 'Yes' if get_span_pairs(trace1) == get_span_pairs(trace2) else 'No'\n```",
+        "prompt": null
+    }
+}

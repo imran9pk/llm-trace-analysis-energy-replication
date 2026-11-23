@@ -1,0 +1,16 @@
+\begin{table}[t]
+\centering
+\caption{Overall accuracy of trace data formats, with changes relative to JSON in percentage points.}
+\label{tab:rq1_accuracy}
+\begin{tabularx}{\columnwidth}{lXXX}
+\toprule
+Format & Qwen & Llama & Ministral \\
+\midrule
+JSON & 0.659 & \textbf{0.511} & 0.511 \\
+Markdown & \textbf{0.663} ($+0.4$) & 0.495 ($-1.6$) & \textbf{0.517} ($+0.6$) \\
+TRON & 0.638 ($-2.0$) & 0.463 ($-4.8$) & 0.480 ($-3.1$) \\
+TOON & 0.650 ($-0.9$) & 0.474 ($-3.6$) & 0.467 ($-4.3$) \\
+CSV & 0.634 ($-2.5$) & 0.481 ($-3.0$) & 0.479 ($-3.2$) \\
+\bottomrule
+\end{tabularx}
+\end{table}

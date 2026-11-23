@@ -1,0 +1,18 @@
+"""
+Auto-generated task-level solver.
+
+Task ID: Task_3_12
+Task Type: 6_Ranking
+Task Description: Identify which service is called most frequently in a given trace.
+Question Template: Which service is called most frequently in the Input Trace?
+"""
+
+from collections import defaultdict
+from typing import List
+
+def solution(trace1: List[dict]) -> List[str]:
+    service_count = defaultdict(int)
+    for span in trace1:
+        service_count[span['service.name']] += 1
+    max_count = max(service_count.values())
+    return [service for service, count in service_count.items() if count == max_count]

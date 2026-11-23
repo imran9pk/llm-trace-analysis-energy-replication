@@ -1,0 +1,344 @@
+{
+    "Task_1_1": {
+        "task_type": "1_Entity",
+        "question_template": "Which services are called by the service '{key_component}' in the Input Trace?",
+        "token_count": 12859,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_threeshot/Task_1_1.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, key_component):\n    called_services = []\n    for span in trace1:\n        if span['parentSpanId'] == -1:\n            continue\n        if span['service.name'] == key_component:\n            called_services.append(span['service.name'])\n    return called_services\n```",
+        "prompt": "\n## Task\nTask Description: Identify which services are called by a given service.\nTask Definition: Given a trace and a specific service, you need to output the list of services which called by this service (i.e., the callee services). The list may be empty.\nQuestion Template: Which services are called by the service '{key_component}' in the Input Trace?\n\n## Trace Format\nEach trace is represented as a list of spans. All attributes of each span follow the OpenTelemetry specification, including 'spanId', 'parentSpanId', 'name', 'kind', 'durationTimeUnixNano', 'service.name', 'host.name', etc., where 'durationTimeUnixNano' is the difference between 'endTimeUnixNano' and 'startTimeUnixNano'. Based on the 'spanId' and 'parentSpanId', each span list can be reconstructed as a tree structure of spans, where the edges represent the caller-callee relationships between a span and its parent span. The span with 'parentSpanId' of -1 is the root span.\n\n\n## Example 1\n- Question\nWhich services are called by the service 'ts-order-service' in the Input Trace?\n- Input Trace(s)\nInput Trace: [{'traceId': 'jlJglD9GOmZ8aBXRr4cMCw==', 'spanId': '2', 'parentSpanId': '1', 'name': '/api/v1/orderservice/order', 'kind': 'SPAN_KIND_SERVER', 'startTimeUnixNano': '1677316745521000000', 'endTimeUnixNano': '1677316745525688176', 'durationTimeUnixNano': '4688176', 'service.name': 'ts-order-service', 'host.name': 'ts-order-service-5c8b698d7b-s5gvv', 'http.route': 'GET/api/v1/orderservice/order', 'http.status_code': '200'}, {'traceId': 'jlJglD9GOmZ8aBXRr4cMCw==', 'spanId': '3', 'parentSpanId': '2', 'name': 'SELECT ts.orders', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677316745521820853', 'endTimeUnixNano': '1677316745523996225', 'durationTimeUnixNano': '2175372', 'service.name': 'ts-order-service', 'host.name': 'ts-order-service-5c8b698d7b-s5gvv', 'db.operation': 'SELECT', 'db.sql.table': 'orders', 'db.name': 'ts', 'db.system': 'mysql'}, {'traceId': 'jlJglD9GOmZ8aBXRr4cMCw==', 'spanId': '5', 'parentSpanId': '4', 'name': '/api/v1/orderOtherService/orderOther', 'kind': 'SPAN_KIND_SERVER', 'startTimeUnixNano': '1677316745525000000', 'endTimeUnixNano': '1677316745528544793', 'durationTimeUnixNano': '3544793', 'service.name': 'ts-order-other-service', 'host.name': 'ts-order-other-service-5b5666cd96-kjb6b', 'http.route': 'GET/api/v1/orderOtherService/orderOther', 'http.status_code': '200'}, {'traceId': 'jlJglD9GOmZ8aBXRr4cMCw==', 'spanId': '6', 'parentSpanId': '-1', 'name': '/api/v1/adminorderservice/adminorder', 'kind': 'SPAN_KIND_SERVER', 'startTimeUnixNano': '1677316745526000000', 'endTimeUnixNano': '1677316745538967439', 'durationTimeUnixNano': '12967439', 'service.name': 'ts-admin-order-service', 'host.name': 'ts-admin-order-service-77b645d88f-w4pj6', 'http.route': 'GET/api/v1/adminorderservice/adminorder', 'http.status_code': '200'}, {'traceId': 'jlJglD9GOmZ8aBXRr4cMCw==', 'spanId': '7', 'parentSpanId': '5', 'name': 'SELECT ts.orders_other', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677316745526479813', 'endTimeUnixNano': '1677316745527063649', 'durationTimeUnixNano': '583836', 'service.name': 'ts-order-other-service', 'host.name': 'ts-order-other-service-5b5666cd96-kjb6b', 'db.operation': 'SELECT', 'db.sql.table': 'orders_other', 'db.name': 'ts', 'db.system': 'mysql'}, {'traceId': 'jlJglD9GOmZ8aBXRr4cMCw==', 'spanId': '1', 'parentSpanId': '6', 'name': 'HTTP GET', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677316745526713852', 'endTimeUnixNano': '1677316745532946937', 'durationTimeUnixNano': '6233085', 'service.name': 'ts-admin-order-service', 'host.name': 'ts-admin-order-service-77b645d88f-w4pj6', 'http.route': 'GET/api/v1/orderservice/order', 'http.status_code': '200'}, {'traceId': 'jlJglD9GOmZ8aBXRr4cMCw==', 'spanId': '4', 'parentSpanId': '6', 'name': 'HTTP GET', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677316745533237088', 'endTimeUnixNano': '1677316745538216566', 'durationTimeUnixNano': '4979478', 'service.name': 'ts-admin-order-service', 'host.name': 'ts-admin-order-service-77b645d88f-w4pj6', 'http.route': 'GET/api/v1/orderOtherService/orderOther', 'http.status_code': '200'}]\n- Answer\n[]\n\n## Example 2\n- Question\nWhich services are called by the service 'ts-execute-service' in the Input Trace?\n- Input Trace(s)\nInput Trace: [{'traceId': 'HyMfTsQ2cJBjuqkmIAYykg==', 'spanId': '2', 'parentSpanId': '1', 'name': '/api/v1/orderservice/order/{orderId}', 'kind': 'SPAN_KIND_SERVER', 'startTimeUnixNano': '1677811818677000000', 'endTimeUnixNano': '1677811818680304580', 'durationTimeUnixNano': '3304580', 'service.name': 'ts-order-service', 'host.name': 'ts-order-service-5c8b698d7b-tb4gd', 'http.route': 'GET/api/v1/orderservice/order/{orderId}', 'http.status_code': '200'}, {'traceId': 'HyMfTsQ2cJBjuqkmIAYykg==', 'spanId': '3', 'parentSpanId': '2', 'name': 'SELECT ts.orders', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677811818678910133', 'endTimeUnixNano': '1677811818679357911', 'durationTimeUnixNano': '447778', 'service.name': 'ts-order-service', 'host.name': 'ts-order-service-5c8b698d7b-tb4gd', 'db.operation': 'SELECT', 'db.sql.table': 'orders', 'db.name': 'ts', 'db.system': 'mysql'}, {'traceId': 'HyMfTsQ2cJBjuqkmIAYykg==', 'spanId': '4', 'parentSpanId': '-1', 'name': '/api/v1/executeservice/execute/execute/{orderId}', 'kind': 'SPAN_KIND_SERVER', 'startTimeUnixNano': '1677811818681000000', 'endTimeUnixNano': '1677811818899714029', 'durationTimeUnixNano': '218714029', 'service.name': 'ts-execute-service', 'host.name': 'ts-execute-service-74b9955ddc-n5scz', 'http.route': 'GET/api/v1/executeservice/execute/execute/{orderId}', 'http.status_code': '200'}, {'traceId': 'HyMfTsQ2cJBjuqkmIAYykg==', 'spanId': '6', 'parentSpanId': '5', 'name': '/api/v1/orderOtherService/orderOther/{orderId}', 'kind': 'SPAN_KIND_SERVER', 'startTimeUnixNano': '1677811818681000000', 'endTimeUnixNano': '1677811818684104194', 'durationTimeUnixNano': '3104194', 'service.name': 'ts-order-other-service', 'host.name': 'ts-order-other-service-5b5666cd96-wvgcj', 'http.route': 'GET/api/v1/orderOtherService/orderOther/{orderId}', 'http.status_code': '200'}, {'traceId': 'HyMfTsQ2cJBjuqkmIAYykg==', 'spanId': '1', 'parentSpanId': '4', 'name': 'HTTP GET', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677811818682122656', 'endTimeUnixNano': '1677811818685841265', 'durationTimeUnixNano': '3718609', 'service.name': 'ts-execute-service', 'host.name': 'ts-execute-service-74b9955ddc-n5scz', 'http.route': 'GET/api/v1/orderservice/order/f16a0d1b-9f52-4c97-8fca-dd622a6dc6fb', 'http.status_code': '200'}, {'traceId': 'HyMfTsQ2cJBjuqkmIAYykg==', 'spanId': '7', 'parentSpanId': '6', 'name': 'SELECT ts.orders_other', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677811818682412617', 'endTimeUnixNano': '1677811818682875563', 'durationTimeUnixNano': '462946', 'service.name': 'ts-order-other-service', 'host.name': 'ts-order-other-service-5b5666cd96-wvgcj', 'db.operation': 'SELECT', 'db.sql.table': 'orders_other', 'db.name': 'ts', 'db.system': 'mysql'}, {'traceId': 'HyMfTsQ2cJBjuqkmIAYykg==', 'spanId': '5', 'parentSpanId': '4', 'name': 'HTTP GET', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677811818686104026', 'endTimeUnixNano': '1677811818690804100', 'durationTimeUnixNano': '4700074', 'service.name': 'ts-execute-service', 'host.name': 'ts-execute-service-74b9955ddc-n5scz', 'http.route': 'GET/api/v1/orderOtherService/orderOther/f16a0d1b-9f52-4c97-8fca-dd622a6dc6fb', 'http.status_code': '200'}, {'traceId': 'HyMfTsQ2cJBjuqkmIAYykg==', 'spanId': '8', 'parentSpanId': '4', 'name': 'HTTP GET', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677811818691092986', 'endTimeUnixNano': '1677811818898960331', 'durationTimeUnixNano': '207867345', 'service.name': 'ts-execute-service', 'host.name': 'ts-execute-service-74b9955ddc-n5scz', 'http.route': 'GET/api/v1/orderOtherService/orderOther/status/f16a0d1b-9f52-4c97-8fca-dd622a6dc6fb/6', 'http.status_code': '200'}, {'traceId': 'HyMfTsQ2cJBjuqkmIAYykg==', 'spanId': '9', 'parentSpanId': '8', 'name': '/api/v1/orderOtherService/orderOther/status/{orderId}/{status}', 'kind': 'SPAN_KIND_SERVER', 'startTimeUnixNano': '1677811818693000000', 'endTimeUnixNano': '1677811818899372225', 'durationTimeUnixNano': '206372225', 'service.name': 'ts-order-other-service', 'host.name': 'ts-order-other-service-5b5666cd96-6tfmt', 'http.route': 'GET/api/v1/orderOtherService/orderOther/status/{orderId}/{status}', 'http.status_code': '200'}, {'traceId': 'HyMfTsQ2cJBjuqkmIAYykg==', 'spanId': '10', 'parentSpanId': '9', 'name': 'SELECT ts.orders_other', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677811818695992434', 'endTimeUnixNano': '1677811818696427330', 'durationTimeUnixNano': '434896', 'service.name': 'ts-order-other-service', 'host.name': 'ts-order-other-service-5b5666cd96-6tfmt', 'db.operation': 'SELECT', 'db.sql.table': 'orders_other', 'db.name': 'ts', 'db.system': 'mysql'}, {'traceId': 'HyMfTsQ2cJBjuqkmIAYykg==', 'spanId': '11', 'parentSpanId': '9', 'name': 'UPDATE ts.orders_other', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677811818697645381', 'endTimeUnixNano': '1677811818898036341', 'durationTimeUnixNano': '200390960', 'service.name': 'ts-order-other-service', 'host.name': 'ts-order-other-service-5b5666cd96-6tfmt', 'db.operation': 'UPDATE', 'db.sql.table': 'orders_other', 'db.name': 'ts', 'db.system': 'mysql'}]\n- Answer\n['ts-order-other-service', 'ts-order-service']\n\n## Example 3\n- Question\nWhich services are called by the service 'ts-config-service' in the Input Trace?\n- Input Trace(s)\nInput Trace: [{'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '1', 'parentSpanId': '-1', 'name': '/api/v1/travelservice/trips/left', 'kind': 'SPAN_KIND_SERVER', 'startTimeUnixNano': '1677208551240000000', 'endTimeUnixNano': '1677208551288046042', 'durationTimeUnixNano': '48046042', 'service.name': 'ts-travel-service', 'host.name': 'ts-travel-service-86bc99b94f-gb9rt', 'http.route': 'POST/api/v1/travelservice/trips/left', 'http.status_code': '200'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '2', 'parentSpanId': '1', 'name': 'SELECT ts.trip', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677208551241289096', 'endTimeUnixNano': '1677208551241616043', 'durationTimeUnixNano': '326947', 'service.name': 'ts-travel-service', 'host.name': 'ts-travel-service-86bc99b94f-gb9rt', 'db.operation': 'SELECT', 'db.sql.table': 'trip', 'db.name': 'ts', 'db.system': 'mysql'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '3', 'parentSpanId': '1', 'name': 'HTTP POST', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677208551242450669', 'endTimeUnixNano': '1677208551258606877', 'durationTimeUnixNano': '16156208', 'service.name': 'ts-travel-service', 'host.name': 'ts-travel-service-86bc99b94f-gb9rt', 'http.route': 'POST/api/v1/basicservice/basic/travels', 'http.status_code': '200'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '4', 'parentSpanId': '3', 'name': '/api/v1/basicservice/basic/travels', 'kind': 'SPAN_KIND_SERVER', 'startTimeUnixNano': '1677208551246000000', 'endTimeUnixNano': '1677208551261601294', 'durationTimeUnixNano': '15601294', 'service.name': 'ts-basic-service', 'host.name': 'ts-basic-service-dc47b9966-zlnwh', 'http.route': 'POST/api/v1/basicservice/basic/travels', 'http.status_code': '200'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '5', 'parentSpanId': '4', 'name': 'HTTP POST', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677208551246695346', 'endTimeUnixNano': '1677208551249246913', 'durationTimeUnixNano': '2551567', 'service.name': 'ts-basic-service', 'host.name': 'ts-basic-service-dc47b9966-zlnwh', 'http.route': 'POST/api/v1/stationservice/stations/idlist', 'http.status_code': '200'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '6', 'parentSpanId': '4', 'name': 'HTTP POST', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677208551249458394', 'endTimeUnixNano': '1677208551251259943', 'durationTimeUnixNano': '1801549', 'service.name': 'ts-basic-service', 'host.name': 'ts-basic-service-dc47b9966-zlnwh', 'http.route': 'POST/api/v1/trainservice/trains/byNames', 'http.status_code': '200'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '7', 'parentSpanId': '4', 'name': 'HTTP POST', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677208551251617056', 'endTimeUnixNano': '1677208551258609583', 'durationTimeUnixNano': '6992527', 'service.name': 'ts-basic-service', 'host.name': 'ts-basic-service-dc47b9966-zlnwh', 'http.route': 'POST/api/v1/routeservice/routes/byIds/', 'http.status_code': '200'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '8', 'parentSpanId': '4', 'name': 'HTTP POST', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677208551259073813', 'endTimeUnixNano': '1677208551261043661', 'durationTimeUnixNano': '1969848', 'service.name': 'ts-basic-service', 'host.name': 'ts-basic-service-dc47b9966-zlnwh', 'http.route': 'POST/api/v1/priceservice/prices/byRouteIdsAndTrainTypes', 'http.status_code': '200'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '9', 'parentSpanId': '1', 'name': 'HTTP POST', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677208551259428123', 'endTimeUnixNano': '1677208551264639849', 'durationTimeUnixNano': '5211726', 'service.name': 'ts-travel-service', 'host.name': 'ts-travel-service-86bc99b94f-gb9rt', 'http.route': 'POST/api/v1/seatservice/seats/left_tickets', 'http.status_code': '200'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '10', 'parentSpanId': '9', 'name': '/api/v1/seatservice/seats/left_tickets', 'kind': 'SPAN_KIND_SERVER', 'startTimeUnixNano': '1677208551262000000', 'endTimeUnixNano': '1677208551266891622', 'durationTimeUnixNano': '4891622', 'service.name': 'ts-seat-service', 'host.name': 'ts-seat-service-bd95445c9-pqznm', 'http.route': 'POST/api/v1/seatservice/seats/left_tickets', 'http.status_code': '200'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '11', 'parentSpanId': '10', 'name': 'HTTP POST', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677208551262624599', 'endTimeUnixNano': '1677208551264313036', 'durationTimeUnixNano': '1688437', 'service.name': 'ts-seat-service', 'host.name': 'ts-seat-service-bd95445c9-pqznm', 'http.route': 'POST/api/v1/orderservice/order/tickets', 'http.status_code': '200'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '12', 'parentSpanId': '10', 'name': 'HTTP GET', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677208551264533497', 'endTimeUnixNano': '1677208551266487497', 'durationTimeUnixNano': '1954000', 'service.name': 'ts-seat-service', 'host.name': 'ts-seat-service-bd95445c9-pqznm', 'http.route': 'GET/api/v1/configservice/configs/DirectTicketAllocationProportion', 'http.status_code': '200'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '13', 'parentSpanId': '1', 'name': 'HTTP POST', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677208551264827219', 'endTimeUnixNano': '1677208551269660938', 'durationTimeUnixNano': '4833719', 'service.name': 'ts-travel-service', 'host.name': 'ts-travel-service-86bc99b94f-gb9rt', 'http.route': 'POST/api/v1/seatservice/seats/left_tickets', 'http.status_code': '200'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '14', 'parentSpanId': '12', 'name': '/api/v1/configservice/configs/{configName}', 'kind': 'SPAN_KIND_SERVER', 'startTimeUnixNano': '1677208551265000000', 'endTimeUnixNano': '1677208551266853393', 'durationTimeUnixNano': '1853393', 'service.name': 'ts-config-service', 'host.name': 'ts-config-service-7578bd9cf7-29qtt', 'http.route': 'GET/api/v1/configservice/configs/{configName}', 'http.status_code': '200'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '15', 'parentSpanId': '14', 'name': 'SELECT ts.config', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677208551265587164', 'endTimeUnixNano': '1677208551266475108', 'durationTimeUnixNano': '887944', 'service.name': 'ts-config-service', 'host.name': 'ts-config-service-7578bd9cf7-29qtt', 'db.operation': 'SELECT', 'db.sql.table': 'config', 'db.name': 'ts', 'db.system': 'mysql'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '16', 'parentSpanId': '13', 'name': '/api/v1/seatservice/seats/left_tickets', 'kind': 'SPAN_KIND_SERVER', 'startTimeUnixNano': '1677208551268000000', 'endTimeUnixNano': '1677208551272526728', 'durationTimeUnixNano': '4526728', 'service.name': 'ts-seat-service', 'host.name': 'ts-seat-service-bd95445c9-lzrnk', 'http.route': 'POST/api/v1/seatservice/seats/left_tickets', 'http.status_code': '200'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '17', 'parentSpanId': '16', 'name': 'HTTP POST', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677208551268636293', 'endTimeUnixNano': '1677208551270493544', 'durationTimeUnixNano': '1857251', 'service.name': 'ts-seat-service', 'host.name': 'ts-seat-service-bd95445c9-lzrnk', 'http.route': 'POST/api/v1/orderservice/order/tickets', 'http.status_code': '200'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '18', 'parentSpanId': '1', 'name': 'HTTP POST', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677208551269941884', 'endTimeUnixNano': '1677208551273407014', 'durationTimeUnixNano': '3465130', 'service.name': 'ts-travel-service', 'host.name': 'ts-travel-service-86bc99b94f-gb9rt', 'http.route': 'POST/api/v1/seatservice/seats/left_tickets', 'http.status_code': '200'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '19', 'parentSpanId': '16', 'name': 'HTTP GET', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677208551270711282', 'endTimeUnixNano': '1677208551272197605', 'durationTimeUnixNano': '1486323', 'service.name': 'ts-seat-service', 'host.name': 'ts-seat-service-bd95445c9-lzrnk', 'http.route': 'GET/api/v1/configservice/configs/DirectTicketAllocationProportion', 'http.status_code': '200'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '20', 'parentSpanId': '18', 'name': '/api/v1/seatservice/seats/left_tickets', 'kind': 'SPAN_KIND_SERVER', 'startTimeUnixNano': '1677208551273000000', 'endTimeUnixNano': '1677208551276187354', 'durationTimeUnixNano': '3187354', 'service.name': 'ts-seat-service', 'host.name': 'ts-seat-service-bd95445c9-pqznm', 'http.route': 'POST/api/v1/seatservice/seats/left_tickets', 'http.status_code': '200'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '21', 'parentSpanId': '20', 'name': 'HTTP POST', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677208551273445679', 'endTimeUnixNano': '1677208551274570446', 'durationTimeUnixNano': '1124767', 'service.name': 'ts-seat-service', 'host.name': 'ts-seat-service-bd95445c9-pqznm', 'http.route': 'POST/api/v1/orderservice/order/tickets', 'http.status_code': '200'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '22', 'parentSpanId': '1', 'name': 'HTTP POST', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677208551273586330', 'endTimeUnixNano': '1677208551277668794', 'durationTimeUnixNano': '4082464', 'service.name': 'ts-travel-service', 'host.name': 'ts-travel-service-86bc99b94f-gb9rt', 'http.route': 'POST/api/v1/seatservice/seats/left_tickets', 'http.status_code': '200'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '23', 'parentSpanId': '20', 'name': 'HTTP GET', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677208551274754157', 'endTimeUnixNano': '1677208551275901100', 'durationTimeUnixNano': '1146943', 'service.name': 'ts-seat-service', 'host.name': 'ts-seat-service-bd95445c9-pqznm', 'http.route': 'GET/api/v1/configservice/configs/DirectTicketAllocationProportion', 'http.status_code': '200'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '24', 'parentSpanId': '22', 'name': '/api/v1/seatservice/seats/left_tickets', 'kind': 'SPAN_KIND_SERVER', 'startTimeUnixNano': '1677208551276000000', 'endTimeUnixNano': '1677208551279827875', 'durationTimeUnixNano': '3827875', 'service.name': 'ts-seat-service', 'host.name': 'ts-seat-service-bd95445c9-lzrnk', 'http.route': 'POST/api/v1/seatservice/seats/left_tickets', 'http.status_code': '200'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '25', 'parentSpanId': '24', 'name': 'HTTP POST', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677208551276346142', 'endTimeUnixNano': '1677208551277909615', 'durationTimeUnixNano': '1563473', 'service.name': 'ts-seat-service', 'host.name': 'ts-seat-service-bd95445c9-lzrnk', 'http.route': 'POST/api/v1/orderservice/order/tickets', 'http.status_code': '200'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '26', 'parentSpanId': '1', 'name': 'HTTP POST', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677208551277935804', 'endTimeUnixNano': '1677208551281581613', 'durationTimeUnixNano': '3645809', 'service.name': 'ts-travel-service', 'host.name': 'ts-travel-service-86bc99b94f-gb9rt', 'http.route': 'POST/api/v1/seatservice/seats/left_tickets', 'http.status_code': '200'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '27', 'parentSpanId': '24', 'name': 'HTTP GET', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677208551278065231', 'endTimeUnixNano': '1677208551279466079', 'durationTimeUnixNano': '1400848', 'service.name': 'ts-seat-service', 'host.name': 'ts-seat-service-bd95445c9-lzrnk', 'http.route': 'GET/api/v1/configservice/configs/DirectTicketAllocationProportion', 'http.status_code': '200'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '28', 'parentSpanId': '27', 'name': '/api/v1/configservice/configs/{configName}', 'kind': 'SPAN_KIND_SERVER', 'startTimeUnixNano': '1677208551279000000', 'endTimeUnixNano': '1677208551280306751', 'durationTimeUnixNano': '1306751', 'service.name': 'ts-config-service', 'host.name': 'ts-config-service-7578bd9cf7-29qtt', 'http.route': 'GET/api/v1/configservice/configs/{configName}', 'http.status_code': '200'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '29', 'parentSpanId': '19', 'name': '/api/v1/configservice/configs/{configName}', 'kind': 'SPAN_KIND_SERVER', 'startTimeUnixNano': '1677208551279000000', 'endTimeUnixNano': '1677208551280001884', 'durationTimeUnixNano': '1001884', 'service.name': 'ts-config-service', 'host.name': 'ts-config-service-7578bd9cf7-qln9h', 'http.route': 'GET/api/v1/configservice/configs/{configName}', 'http.status_code': '200'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '30', 'parentSpanId': '29', 'name': 'SELECT ts.config', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677208551279325564', 'endTimeUnixNano': '1677208551279743907', 'durationTimeUnixNano': '418343', 'service.name': 'ts-config-service', 'host.name': 'ts-config-service-7578bd9cf7-qln9h', 'db.operation': 'SELECT', 'db.sql.table': 'config', 'db.name': 'ts', 'db.system': 'mysql'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '31', 'parentSpanId': '28', 'name': 'SELECT ts.config', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677208551279539015', 'endTimeUnixNano': '1677208551279982527', 'durationTimeUnixNano': '443512', 'service.name': 'ts-config-service', 'host.name': 'ts-config-service-7578bd9cf7-29qtt', 'db.operation': 'SELECT', 'db.sql.table': 'config', 'db.name': 'ts', 'db.system': 'mysql'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '32', 'parentSpanId': '26', 'name': '/api/v1/seatservice/seats/left_tickets', 'kind': 'SPAN_KIND_SERVER', 'startTimeUnixNano': '1677208551281000000', 'endTimeUnixNano': '1677208551284397240', 'durationTimeUnixNano': '3397240', 'service.name': 'ts-seat-service', 'host.name': 'ts-seat-service-bd95445c9-pqznm', 'http.route': 'POST/api/v1/seatservice/seats/left_tickets', 'http.status_code': '200'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '33', 'parentSpanId': '32', 'name': 'HTTP POST', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677208551281443957', 'endTimeUnixNano': '1677208551282754910', 'durationTimeUnixNano': '1310953', 'service.name': 'ts-seat-service', 'host.name': 'ts-seat-service-bd95445c9-pqznm', 'http.route': 'POST/api/v1/orderservice/order/tickets', 'http.status_code': '200'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '34', 'parentSpanId': '1', 'name': 'HTTP POST', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677208551281781812', 'endTimeUnixNano': '1677208551286736242', 'durationTimeUnixNano': '4954430', 'service.name': 'ts-travel-service', 'host.name': 'ts-travel-service-86bc99b94f-gb9rt', 'http.route': 'POST/api/v1/seatservice/seats/left_tickets', 'http.status_code': '200'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '35', 'parentSpanId': '32', 'name': 'HTTP GET', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677208551282915441', 'endTimeUnixNano': '1677208551284082645', 'durationTimeUnixNano': '1167204', 'service.name': 'ts-seat-service', 'host.name': 'ts-seat-service-bd95445c9-pqznm', 'http.route': 'GET/api/v1/configservice/configs/DirectTicketAllocationProportion', 'http.status_code': '200'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '36', 'parentSpanId': '23', 'name': '/api/v1/configservice/configs/{configName}', 'kind': 'SPAN_KIND_SERVER', 'startTimeUnixNano': '1677208551283000000', 'endTimeUnixNano': '1677208551283865481', 'durationTimeUnixNano': '865481', 'service.name': 'ts-config-service', 'host.name': 'ts-config-service-7578bd9cf7-qln9h', 'http.route': 'GET/api/v1/configservice/configs/{configName}', 'http.status_code': '200'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '37', 'parentSpanId': '35', 'name': '/api/v1/configservice/configs/{configName}', 'kind': 'SPAN_KIND_SERVER', 'startTimeUnixNano': '1677208551283000000', 'endTimeUnixNano': '1677208551284020497', 'durationTimeUnixNano': '1020497', 'service.name': 'ts-config-service', 'host.name': 'ts-config-service-7578bd9cf7-29qtt', 'http.route': 'GET/api/v1/configservice/configs/{configName}', 'http.status_code': '200'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '38', 'parentSpanId': '36', 'name': 'SELECT ts.config', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677208551283268625', 'endTimeUnixNano': '1677208551283631305', 'durationTimeUnixNano': '362680', 'service.name': 'ts-config-service', 'host.name': 'ts-config-service-7578bd9cf7-qln9h', 'db.operation': 'SELECT', 'db.sql.table': 'config', 'db.name': 'ts', 'db.system': 'mysql'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '39', 'parentSpanId': '37', 'name': 'SELECT ts.config', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677208551283357644', 'endTimeUnixNano': '1677208551283766595', 'durationTimeUnixNano': '408951', 'service.name': 'ts-config-service', 'host.name': 'ts-config-service-7578bd9cf7-29qtt', 'db.operation': 'SELECT', 'db.sql.table': 'config', 'db.name': 'ts', 'db.system': 'mysql'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '40', 'parentSpanId': '34', 'name': '/api/v1/seatservice/seats/left_tickets', 'kind': 'SPAN_KIND_SERVER', 'startTimeUnixNano': '1677208551285000000', 'endTimeUnixNano': '1677208551289463958', 'durationTimeUnixNano': '4463958', 'service.name': 'ts-seat-service', 'host.name': 'ts-seat-service-bd95445c9-lzrnk', 'http.route': 'POST/api/v1/seatservice/seats/left_tickets', 'http.status_code': '200'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '41', 'parentSpanId': '40', 'name': 'HTTP POST', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677208551285500811', 'endTimeUnixNano': '1677208551287579745', 'durationTimeUnixNano': '2078934', 'service.name': 'ts-seat-service', 'host.name': 'ts-seat-service-bd95445c9-lzrnk', 'http.route': 'POST/api/v1/orderservice/order/tickets', 'http.status_code': '200'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '42', 'parentSpanId': '40', 'name': 'HTTP GET', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677208551287816590', 'endTimeUnixNano': '1677208551289123522', 'durationTimeUnixNano': '1306932', 'service.name': 'ts-seat-service', 'host.name': 'ts-seat-service-bd95445c9-lzrnk', 'http.route': 'GET/api/v1/configservice/configs/DirectTicketAllocationProportion', 'http.status_code': '200'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '43', 'parentSpanId': '42', 'name': '/api/v1/configservice/configs/{configName}', 'kind': 'SPAN_KIND_SERVER', 'startTimeUnixNano': '1677208551296000000', 'endTimeUnixNano': '1677208551297027842', 'durationTimeUnixNano': '1027842', 'service.name': 'ts-config-service', 'host.name': 'ts-config-service-7578bd9cf7-qln9h', 'http.route': 'GET/api/v1/configservice/configs/{configName}', 'http.status_code': '200'}, {'traceId': 'PgMrwjIkWC0h9YHPkbRyYQ==', 'spanId': '44', 'parentSpanId': '43', 'name': 'SELECT ts.config', 'kind': 'SPAN_KIND_CLIENT', 'startTimeUnixNano': '1677208551296255910', 'endTimeUnixNano': '1677208551296795874', 'durationTimeUnixNano': '539964', 'service.name': 'ts-config-service', 'host.name': 'ts-config-service-7578bd9cf7-qln9h', 'db.operation': 'SELECT', 'db.sql.table': 'config', 'db.name': 'ts', 'db.system': 'mysql'}]\n- Answer\n[]\n\n\n## Function Specification\nWrite a general-purpose Python function with this exact signature:\n\n```python\ndef solution(trace1, key_component):\n    # function body\n    return answer\n```\n\n- `trace1` is one input trace.\n- `key_component` is extracted from the concrete question at runtime.\n\n\n## Requirements\n- Do not hardcode span IDs, service names, host names, trace IDs, routes, timestamps, or example-specific values.\n- Return only the exact answer value: a number, string, list, or empty list [].\n- Do not return span dictionaries, trace labels, or any surrounding structure unless explicitly asked.\n- Time-related fields such as `startTimeUnixNano`, `endTimeUnixNano`, and `durationTimeUnixNano` are strings and must be converted to integers before arithmetic.\n- Do not include explanations, reasoning, or any text outside the ```python ... ``` code block in your response.\n\n"
+    },
+    "Task_1_2": {
+        "task_type": "1_Entity",
+        "question_template": "Which service instances are called by the service instance '{key_component}' in the Input Trace?",
+        "token_count": 7204,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_threeshot/Task_1_2.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, key_component):\n    callee_spans = []\n    for span in trace1:\n        if span['parentSpanId'] == key_component:\n            callee_spans.append(span['service.name'])\n    return list(set(callee_spans))\n```",
+        "prompt": null
+    },
+    "Task_1_3": {
+        "task_type": "1_Entity",
+        "question_template": "Which services call the service '{key_component}' in the Input Trace?",
+        "token_count": 4350,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_threeshot/Task_1_3.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, key_component):\n    callers = []\n    for span in trace1:\n        if span['service.name'] == key_component:\n            parent_span = next((s for s in trace1 if s['spanId'] == span['parentSpanId']), None)\n            if parent_span:\n                callers.append(parent_span['service.name'])\n    return list(set(callers))\n```",
+        "prompt": null
+    },
+    "Task_1_4": {
+        "task_type": "1_Entity",
+        "question_template": "Which service instances call the service instance '{key_component}' in the Input Trace?",
+        "token_count": 17265,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_threeshot/Task_1_4.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, key_component):\n    callers = []\n    for span in trace1:\n        if span['service.name'] == key_component:\n            parent_span = next((s for s in trace1 if s['spanId'] == span['parentSpanId']), None)\n            if parent_span:\n                callers.append(parent_span['host.name'])\n    return callers\n```",
+        "prompt": null
+    },
+    "Task_1_5": {
+        "task_type": "1_Counting",
+        "question_template": "How many child spans does span '{key_component}' have in the Input Trace?",
+        "token_count": 17193,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_threeshot/Task_1_5.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, key_component):\n    parent_span_id = int(key_component)\n    child_spans = [span for span in trace1 if span['parentSpanId'] == str(parent_span_id)]\n    return len(child_spans)\n```",
+        "prompt": null
+    },
+    "Task_1_6": {
+        "task_type": "2_Ranking",
+        "question_template": "Which child span of span '{key_component}' has the longest response time in the Input Trace?",
+        "token_count": 18039,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_threeshot/Task_1_6.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, key_component):\n    def parse_time(time_str):\n        return int(time_str)\n\n    def find_longest_child_span(trace, parent_span_id):\n        max_duration = 0\n        longest_span_id = None\n\n        for span in trace:\n            if span['parentSpanId'] == parent_span_id:\n                duration = parse_time(span['durationTimeUnixNano'])\n                if duration > max_duration:\n                    max_duration = duration\n                    longest_span_id = span['spanId']\n\n        return longest_span_id\n\n    return find_longest_child_span(trace1, key_component)\n```",
+        "prompt": null
+    },
+    "Task_1_7": {
+        "task_type": "2_Computation",
+        "question_template": "What is the response time of span '{key_component}' in the Input Trace?",
+        "token_count": 6390,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_threeshot/Task_1_7.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, key_component):\n    for span in trace1:\n        if span['spanId'] == key_component:\n            return int(span['durationTimeUnixNano'])\n    return []\n```",
+        "prompt": null
+    },
+    "Task_1_8": {
+        "task_type": "2_Computation",
+        "question_template": "What is the waiting time of span '{key_component}' in the Input Trace?",
+        "token_count": 15833,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_threeshot/Task_1_8.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, key_component):\n    def get_span_by_id(spans, span_id):\n        for span in spans:\n            if span['spanId'] == span_id:\n                return span\n        return None\n\n    def get_span_waiting_time(spans, span_id):\n        span = get_span_by_id(spans, span_id)\n        if span is None:\n            return 0\n        if span['kind'] == 'SPAN_KIND_SERVER':\n            return 0\n        child_spans = [s for s in spans if s['parentSpanId'] == span_id]\n        return sum(int(s['durationTimeUnixNano']) for s in child_spans)\n\n    spans = trace1\n    return get_span_waiting_time(spans, key_component)\n```",
+        "prompt": null
+    },
+    "Task_1_9": {
+        "task_type": "2_Computation",
+        "question_template": "What is the local execution time of span '{key_component}' in the Input Trace?",
+        "token_count": 14404,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_threeshot/Task_1_9.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, key_component):\n    def get_span_by_id(spans, span_id):\n        for span in spans:\n            if span['spanId'] == span_id:\n                return span\n        return None\n\n    def get_local_execution_time(span):\n        if span['kind'] == 'SPAN_KIND_PRODUCER':\n            return int(span['durationTimeUnixNano'])\n        else:\n            child_spans = [s for s in spans if s['parentSpanId'] == span['spanId']]\n            total_child_duration = sum(int(s['durationTimeUnixNano']) for s in child_spans)\n            return int(span['durationTimeUnixNano']) - total_child_duration\n\n    spans = trace1\n    span = get_span_by_id(spans, key_component)\n    if span:\n        return get_local_execution_time(span)\n    else:\n        return 0\n```",
+        "prompt": null
+    },
+    "Task_2_1": {
+        "task_type": "3_Existence",
+        "question_template": "Is there an HTTP call from service '{key_component_1}' to service '{key_component_2}' in the Input Trace?",
+        "token_count": 8720,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_threeshot/Task_2_1.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, key_component_1, key_component_2):\n    for span in trace1:\n        if span['service.name'] == key_component_1 and span['parentSpanId'] != '-1':\n            parent_span = next((s for s in trace1 if s['spanId'] == span['parentSpanId']), None)\n            if parent_span and parent_span['service.name'] == key_component_2:\n                return 'Yes'\n    return 'No'\n```",
+        "prompt": null
+    },
+    "Task_2_2": {
+        "task_type": "3_Existence",
+        "question_template": "Is there an HTTP call from service instance '{key_component_1}' to service instance '{key_component_2}' in the Input Trace?",
+        "token_count": 18637,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_threeshot/Task_2_2.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, key_component_1, key_component_2):\n    for span in trace1:\n        if span['http.route'] and key_component_1 in span['host.name'] and key_component_2 in span['service.name']:\n            return 'Yes'\n    return 'No'\n```",
+        "prompt": null
+    },
+    "Task_2_3": {
+        "task_type": "3_Existence",
+        "question_template": "Is there an HTTP call path from service '{key_component_1}' to service '{key_component_2}' in the Input Trace?",
+        "token_count": 4425,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_threeshot/Task_2_3.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, key_component_1, key_component_2):\n    def find_path(spans, src, dest):\n        if not spans:\n            return False\n        for span in spans:\n            if span['service.name'] == src:\n                for child in spans:\n                    if child['parentSpanId'] == span['spanId']:\n                        if child['service.name'] == dest:\n                            return True\n                        if find_path(spans, src, dest):\n                            return True\n        return False\n\n    return 'Yes' if find_path(trace1, key_component_1, key_component_2) else 'No'\n```",
+        "prompt": null
+    },
+    "Task_2_4": {
+        "task_type": "3_Existence",
+        "question_template": "Is there an HTTP call path from service instance '{key_component_1}' to service instance '{key_component_2}' in the Input Trace?",
+        "token_count": 23489,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_threeshot/Task_2_4.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, key_component_1, key_component_2):\n    for span in trace1:\n        if span['service.name'] == key_component_1 and span['host.name'] == key_component_1:\n            for child_span in trace1:\n                if child_span['parentSpanId'] == span['spanId']:\n                    if child_span['service.name'] == key_component_2 and child_span['host.name'] == key_component_2:\n                        return 'Yes'\n    return 'No'\n```",
+        "prompt": null
+    },
+    "Task_2_5": {
+        "task_type": "4_Comparison",
+        "question_template": "Which span, span '{key_component_1}' or span '{key_component_2}', has a longer response time in the Input Trace?",
+        "token_count": 7067,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_threeshot/Task_2_5.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, key_component_1, key_component_2):\n    span1 = next((s for s in trace1 if s['spanId'] == key_component_1), None)\n    span2 = next((s for s in trace1 if s['spanId'] == key_component_2), None)\n\n    if span1 is None or span2 is None:\n        return 'Invalid span ID'\n\n    duration1 = int(span1['durationTimeUnixNano'])\n    duration2 = int(span2['durationTimeUnixNano'])\n\n    if duration1 > duration2:\n        return key_component_1\n    elif duration2 > duration1:\n        return key_component_2\n    else:\n        return 'Same'\n```",
+        "prompt": null
+    },
+    "Task_2_6": {
+        "task_type": "4_Comparison",
+        "question_template": "Which span, span '{key_component_1}' or span '{key_component_2}', has a longer waiting time in the Input Trace?",
+        "token_count": 15964,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_threeshot/Task_2_6.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, key_component_1, key_component_2):\n    def get_span_waiting_time(span):\n        if span['kind'] == 'SPAN_KIND_SERVER':\n            return 0\n        else:\n            return sum(int(child['durationTimeUnixNano']) for child in trace1 if child['parentSpanId'] == span['spanId'])\n\n    span1 = next(span for span in trace1 if span['spanId'] == key_component_1)\n    span2 = next(span for span in trace1 if span['spanId'] == key_component_2)\n\n    waiting_time1 = get_span_waiting_time(span1)\n    waiting_time2 = get_span_waiting_time(span2)\n\n    if waiting_time1 > waiting_time2:\n        return key_component_1\n    elif waiting_time2 > waiting_time1:\n        return key_component_2\n    else:\n        return 'Same'\n```",
+        "prompt": null
+    },
+    "Task_2_7": {
+        "task_type": "4_Comparison",
+        "question_template": "Which span, span '{key_component_1}' or span '{key_component_2}', has a longer local execution time in the Input Trace?",
+        "token_count": 25793,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_threeshot/Task_2_7.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, key_component_1, key_component_2):\n    def get_local_execution_time(span):\n        if span['kind'] == 'SPAN_KIND_SERVER':\n            return int(span['durationTimeUnixNano'])\n        else:\n            return int(span['durationTimeUnixNano']) - sum(int(child['durationTimeUnixNano']) for child in trace1 if child['parentSpanId'] == span['spanId'])\n\n    span1 = next(span for span in trace1 if span['spanId'] == key_component_1)\n    span2 = next(span for span in trace1 if span['spanId'] == key_component_2)\n\n    local_time_span1 = get_local_execution_time(span1)\n    local_time_span2 = get_local_execution_time(span2)\n\n    if local_time_span1 > local_time_span2:\n        return key_component_1\n    elif local_time_span2 > local_time_span1:\n        return key_component_2\n    else:\n        return 'Same'\n```",
+        "prompt": null
+    },
+    "Task_3_9": {
+        "task_type": "5_Computation",
+        "question_template": "What is the depth of the Input Trace?",
+        "token_count": 15395,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_threeshot/Task_3_9.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1):\n    from collections import defaultdict\n\n    def get_span_depth(span, parent_span_id):\n        if span['parentSpanId'] == -1:\n            return 1\n        for s in trace1:\n            if s['spanId'] == span['parentSpanId']:\n                return 1 + get_span_depth(s, parent_span_id)\n        return 0\n\n    max_depth = 0\n    for span in trace1:\n        if span['parentSpanId'] == -1:\n            max_depth = max(max_depth, get_span_depth(span, span['spanId']))\n\n    return max_depth\n```",
+        "prompt": null
+    },
+    "Task_3_10": {
+        "task_type": "5_Existence",
+        "question_template": "Is there a cyclic call issue in the Input Trace?",
+        "token_count": 6293,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_threeshot/Task_3_10.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1):\n    from collections import defaultdict\n\n    def build_graph(spans):\n        graph = defaultdict(list)\n        for span in spans:\n            parent_id = int(span['parentSpanId'])\n            if parent_id != -1:\n                graph[parent_id].append(int(span['spanId']))\n        return graph\n\n    def has_cycle(graph, visited, rec_stack):\n        for node in graph:\n            if node not in visited:\n                if has_cycle_recursive(graph, node, visited, rec_stack):\n                    return True\n        return False\n\n    def has_cycle_recursive(graph, node, visited, rec_stack):\n        if node in rec_stack:\n            return True\n        if node in visited:\n            return False\n\n        visited.add(node)\n        rec_stack.add(node)\n\n        for neighbor in graph[node]:\n            if has_cycle_recursive(graph, neighbor, visited, rec_stack):\n                return True\n\n        rec_stack.remove(node)\n        return False\n\n    graph = build_graph(trace1)\n    visited = set()\n    rec_stack = set()\n\n    return 'Yes' if has_cycle(graph, visited, rec_stack) else 'No'\n```",
+        "prompt": null
+    },
+    "Task_3_11": {
+        "task_type": "6_Computation",
+        "question_template": "What is the end-to-end response time of the Input Trace?",
+        "token_count": 2959,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_threeshot/Task_3_11.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1):\n    root_span = next(span for span in trace1 if span['parentSpanId'] == '-1')\n    return int(root_span['durationTimeUnixNano'])\n```",
+        "prompt": null
+    },
+    "Task_3_12": {
+        "task_type": "6_Ranking",
+        "question_template": "Which service is called most frequently in the Input Trace?",
+        "token_count": 4251,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_threeshot/Task_3_12.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1):\n    from collections import Counter\n\n    service_calls = [span['service.name'] for span in trace1]\n    service_counter = Counter(service_calls)\n    max_count = max(service_counter.values())\n    most_frequent_services = [service for service, count in service_counter.items() if count == max_count]\n\n    return most_frequent_services\n```",
+        "prompt": null
+    },
+    "Task_3_13": {
+        "task_type": "6_Ranking",
+        "question_template": "Which service instance is called most frequently in the Input Trace?",
+        "token_count": 4616,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_threeshot/Task_3_13.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1):\n    from collections import defaultdict\n\n    service_count = defaultdict(int)\n\n    for span in trace1:\n        service_name = span['service.name']\n        service_count[service_name] += 1\n\n    max_count = max(service_count.values())\n    most_frequent_services = [service for service, count in service_count.items() if count == max_count]\n\n    return most_frequent_services\n```",
+        "prompt": null
+    },
+    "Task_3_14": {
+        "task_type": "6_Ranking",
+        "question_template": "Which operation is executed most frequently in the Input Trace?",
+        "token_count": 18664,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_threeshot/Task_3_14.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1):\n    from collections import Counter\n\n    # Extract the 'name' attribute from each span\n    names = [span['name'] for span in trace1]\n\n    # Count the frequency of each operation\n    operation_counts = Counter(names)\n\n    # Find the maximum frequency\n    max_frequency = max(operation_counts.values())\n\n    # Get all operations with the maximum frequency\n    most_frequent_operations = [name for name, count in operation_counts.items() if count == max_frequency]\n\n    return most_frequent_operations\n```",
+        "prompt": null
+    },
+    "Task_3_16": {
+        "task_type": "6_Ranking",
+        "question_template": "Which type of SQL statement is executed most frequently in the Input Trace?",
+        "token_count": 13129,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_threeshot/Task_3_16.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1):\n    sql_statements = {'INSERT': 0, 'DELETE': 0, 'UPDATE': 0, 'SELECT': 0}\n    for span in trace1:\n        if 'db.operation' in span:\n            operation = span['db.operation']\n            if operation in sql_statements:\n                sql_statements[operation] += 1\n    max_count = max(sql_statements.values())\n    return [sql for sql, count in sql_statements.items() if count == max_count]\n```",
+        "prompt": null
+    },
+    "Task_3_17": {
+        "task_type": "6_Ranking",
+        "question_template": "Which table is accessed most frequently in the Input Trace?",
+        "token_count": 3338,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_threeshot/Task_3_17.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1):\n    from collections import defaultdict\n\n    table_access_count = defaultdict(int)\n\n    for span in trace1:\n        if 'db.sql.table' in span:\n            table = span['db.sql.table']\n            table_access_count[table] += 1\n\n    max_access_count = max(table_access_count.values())\n    most_frequent_tables = [table for table, count in table_access_count.items() if count == max_access_count]\n\n    return most_frequent_tables\n```",
+        "prompt": null
+    },
+    "Task_3_18": {
+        "task_type": "6_Ranking",
+        "question_template": "Which database is accessed most frequently in the Input Trace?",
+        "token_count": 17180,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_threeshot/Task_3_18.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1):\n    from collections import defaultdict\n\n    db_access_count = defaultdict(int)\n\n    for span in trace1:\n        if 'db.name' in span:\n            db_name = span['db.name']\n            db_access_count[db_name] += 1\n\n    max_access_count = max(db_access_count.values())\n    most_frequent_dbs = [db for db, count in db_access_count.items() if count == max_access_count]\n\n    return most_frequent_dbs\n```",
+        "prompt": null
+    },
+    "Task_3_19": {
+        "task_type": "6_Ranking",
+        "question_template": "Which database operation has the longest execution time in the Input Trace?",
+        "token_count": 6973,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_threeshot/Task_3_19.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1):\n    max_duration = 0\n    longest_operations = []\n\n    for span in trace1:\n        if 'db.operation' in span:\n            duration = int(span['durationTimeUnixNano'])\n            if duration > max_duration:\n                max_duration = duration\n                longest_operations = [span['name']]\n            elif duration == max_duration:\n                longest_operations.append(span['name'])\n\n    return longest_operations\n```",
+        "prompt": null
+    },
+    "Task_3_20": {
+        "task_type": "6_Entity",
+        "question_template": "Which operations have abnormal response codes in the Input Trace?",
+        "token_count": 4854,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_threeshot/Task_3_20.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1):\n    abnormal_codes = [span['http.status_code'] for span in trace1 if span['http.status_code'] not in ['200', '201', '202', '204', '301', '302', '303', '304', '307', '308', '400', '401', '403', '404', '405', '406', '407', '408', '409', '410', '411', '412', '413', '414', '415', '416', '417', '418', '421', '422', '423', '424', '425', '426', '428', '429', '431', '451', '500', '501', '502', '503', '504', '505', '506', '507', '508', '510', '511']]\n    return abnormal_codes\n```",
+        "prompt": null
+    },
+    "Task_3_21": {
+        "task_type": "6_Entity",
+        "question_template": "Which spans have abnormal response codes in the Input Trace?",
+        "token_count": 3382,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_threeshot/Task_3_21.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1):\n    abnormal_spans = []\n    for span in trace1:\n        if 'http.status_code' in span and int(span['http.status_code']) >= 400:\n            abnormal_spans.append(span['spanId'])\n    return abnormal_spans\n```",
+        "prompt": null
+    },
+    "Task_4_1": {
+        "task_type": "7_Comparison",
+        "question_template": "Are the response codes of the Input Trace '{key_component_1}' and the Input Trace '{key_component_2}' the same?",
+        "token_count": 30100,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_threeshot/Task_4_1.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, trace2):\n    return 'Yes' if trace1[0]['http.status_code'] == trace2[0]['http.status_code'] else 'No'\n```",
+        "prompt": null
+    },
+    "Task_4_2": {
+        "task_type": "7_Comparison",
+        "question_template": "Are the root URLs of the Input Trace '{key_component_1}' and the Input Trace '{key_component_2}' the same?",
+        "token_count": 15673,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_threeshot/Task_4_2.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, trace2):\n    def get_root_url(trace):\n        for span in trace:\n            if span['parentSpanId'] == -1:\n                return span['http.route']\n        return None\n\n    root_url1 = get_root_url(trace1)\n    root_url2 = get_root_url(trace2)\n\n    return 'Yes' if root_url1 == root_url2 else 'No'\n```",
+        "prompt": null
+    },
+    "Task_4_3": {
+        "task_type": "8_Comparison",
+        "question_template": "Which trace, the Input Trace '{key_component_1}' or the Input Trace '{key_component_2}', has a greater number of spans?",
+        "token_count": 32807,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_threeshot/Task_4_3.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, trace2):\n    return max(len(trace1), len(trace2))\n```",
+        "prompt": null
+    },
+    "Task_4_4": {
+        "task_type": "8_Comparison",
+        "question_template": "Which trace, the Input Trace '{key_component_1}' or the Input Trace '{key_component_2}', has a greater depth?",
+        "token_count": 24797,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_threeshot/Task_4_4.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, trace2):\n    def get_depth(trace):\n        from collections import defaultdict\n\n        # Create a dictionary to store the parent-child relationships\n        parent_map = defaultdict(list)\n        for span in trace:\n            if span['parentSpanId'] != '-1':\n                parent_map[span['parentSpanId']].append(span['spanId'])\n\n        # Use a stack to perform a depth-first search\n        stack = [(span['spanId'], 0) for span in trace if span['parentSpanId'] == '-1']\n        max_depth = 0\n\n        while stack:\n            current_span_id, current_depth = stack.pop()\n            max_depth = max(max_depth, current_depth)\n            for child_span_id in parent_map[current_span_id]:\n                stack.append((child_span_id, current_depth + 1))\n\n        return max_depth\n\n    depth1 = get_depth(trace1)\n    depth2 = get_depth(trace2)\n\n    if depth1 > depth2:\n        return trace1\n    elif depth2 > depth1:\n        return trace2\n    else:\n        return 'Same'\n```",
+        "prompt": null
+    },
+    "Task_4_5": {
+        "task_type": "7_Comparison",
+        "question_template": "Which trace, the Input Trace '{key_component_1}' or the Input Trace '{key_component_2}', has a longer end-to-end response time?",
+        "token_count": 34575,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_threeshot/Task_4_5.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, trace2):\n    # Extract the root span for each trace\n    root_span1 = next((span for span in trace1 if span['parentSpanId'] == '-1'), None)\n    root_span2 = next((span for span in trace2 if span['parentSpanId'] == '-1'), None)\n\n    # Convert the durationTimeUnixNano to integers\n    duration1 = int(root_span1['durationTimeUnixNano'])\n    duration2 = int(root_span2['durationTimeUnixNano'])\n\n    # Compare the durations\n    if duration1 > duration2:\n        return trace1\n    elif duration2 > duration1:\n        return trace2\n    else:\n        return 'Same'\n```",
+        "prompt": null
+    },
+    "Task_4_6": {
+        "task_type": "8_Comparison",
+        "question_template": "Are the sets of services involved in the Input Trace '{key_component_1}' and the Input Trace '{key_component_2}' the same?",
+        "token_count": 34437,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_threeshot/Task_4_6.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, trace2):\n    # Extract the set of services involved in each trace\n    services_trace1 = set(span['service.name'] for span in trace1)\n    services_trace2 = set(span['service.name'] for span in trace2)\n\n    # Compare the sets of services\n    return 'Yes' if services_trace1 == services_trace2 else 'No'\n```",
+        "prompt": null
+    },
+    "Task_4_7": {
+        "task_type": "8_Comparison",
+        "question_template": "Are the sets of service instances involved in the Input Trace '{key_component_1}' and the Input Trace '{key_component_2}' the same?",
+        "token_count": 34596,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_threeshot/Task_4_7.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, trace2):\n    # Extract the service names from the traces\n    service_names1 = {span['service.name'] for span in trace1}\n    service_names2 = {span['service.name'] for span in trace2}\n\n    # Compare the sets of service names\n    return 'Yes' if service_names1 == service_names2 else 'No'\n```",
+        "prompt": null
+    },
+    "Task_4_8": {
+        "task_type": "8_Comparison",
+        "question_template": "Are the sets of operations involved in the Input Trace '{key_component_1}' and the Input Trace '{key_component_2}' the same?",
+        "token_count": 23562,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_threeshot/Task_4_8.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, trace2):\n    def extract_operations(trace):\n        operations = set()\n        for span in trace:\n            operations.add(span['name'])\n        return operations\n\n    return 'Yes' if extract_operations(trace1) == extract_operations(trace2) else 'No'\n```",
+        "prompt": null
+    },
+    "Task_4_9": {
+        "task_type": "8_Comparison",
+        "question_template": "Are the sets of service call pairs involved in the Input Trace '{key_component_1}' and the Input Trace '{key_component_2}' the same?",
+        "token_count": 20025,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_threeshot/Task_4_9.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, trace2):\n    def extract_service_call_pairs(trace):\n        pairs = []\n        for span in trace:\n            if span['parentSpanId'] != '-1':\n                parent_span = next(s for s in trace if s['spanId'] == span['parentSpanId'])\n                pairs.append((parent_span['service.name'], span['service.name']))\n        return pairs\n\n    pairs1 = extract_service_call_pairs(trace1)\n    pairs2 = extract_service_call_pairs(trace2)\n\n    return 'Yes' if pairs1 == pairs2 else 'No'\n```",
+        "prompt": null
+    },
+    "Task_4_10": {
+        "task_type": "8_Comparison",
+        "question_template": "Are the sets of service instance call pairs involved in the Input Trace '{key_component_1}' and the Input Trace '{key_component_2}' the same?",
+        "token_count": 27455,
+        "script_path": "<repo>/src/PoT/../../output/generated_scripts/generated_scripts_Ministral-8B-Instruct-2410_threeshot/Task_4_10.py",
+        "success": true,
+        "raw_response": "```python\ndef solution(trace1, trace2):\n    def extract_service_call_pairs(trace):\n        pairs = []\n        for span in trace:\n            if span['parentSpanId'] != '-1':\n                pairs.append((span['service.name'], span['parentSpanId']))\n        return pairs\n\n    pairs1 = extract_service_call_pairs(trace1)\n    pairs2 = extract_service_call_pairs(trace2)\n\n    return 'Yes' if pairs1 == pairs2 else 'No'\n```",
+        "prompt": null
+    }
+}

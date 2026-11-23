@@ -1,0 +1,7 @@
+# Post-processing only (src/utils/*, Format_Conversion/shared_format). Versions: pin from your local environment.
+numpy
+pandas
+matplotlib
+pyyaml
+tqdm
+tiktoken
